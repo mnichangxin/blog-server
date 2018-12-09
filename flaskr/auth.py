@@ -24,3 +24,6 @@ def register():
             'SELECT id FROM user WHERE username = ?', (username)
         ).fetchone() is not None:
             error = 'User {} is already register.'.format(username)
+        
+        if error is None:
+            
