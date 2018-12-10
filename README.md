@@ -38,6 +38,13 @@ The personal website server.
 
 ```
 
+* Create virtual environment:
+
+```sh
+    virtualenv venv
+    .\venv\Scripts\activate
+```
+
 * Run start: 
 
 If Linux:
