@@ -41,8 +41,9 @@ The personal website server.
 * Create virtual environment:
 
 ```sh
-    virtualenv venv
-    .\venv\Scripts\activate
+    python3 -m env env
+    . venv/bin/activate (Linux)
+    venv\Scripts\activate (Windows)
 ```
 
 * Run start: 
