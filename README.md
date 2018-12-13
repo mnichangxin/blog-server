@@ -38,7 +38,7 @@ The personal website server.
 
 ```
 
-* Create virtual environment:
+* Create virtual environment and activate:
 
 ```sh
     python3 -m env env
@@ -46,9 +46,15 @@ The personal website server.
     venv\Scripts\activate (Windows)
 ```
 
-* Run start: 
+* Install:
 
-If Linux:
+```sh
+    pip(3) install -e .
+```
+
+* Configuration:
+
+If `Linux`:
 
 ```sh
     export FLASK_APP=flaskr
@@ -56,7 +62,7 @@ If Linux:
     flask run
 ```
 
-If Windows:
+If `Windows`:
 
 ```sh
     $env:FLASK_APP = "flaskr"
@@ -64,4 +70,16 @@ If Windows:
     flask run
 ```
 
-Then start at default `http://127.0.0.1:5000/`.
+* Init DateBase:
+
+```sh
+    flask init-db
+```
+
+* Run start: 
+
+```sh
+    flask run
+```
+
+Finally start at default `http://127.0.0.1:5000/`.
