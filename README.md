@@ -2,6 +2,8 @@
 
 The personal website server.
 
+**Notes: All environments depend on `Python ^3.7`.**
+
 ## V0.0.1 Flask
 
 * Project layout: 
