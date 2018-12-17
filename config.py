@@ -6,6 +6,10 @@ class BaseConfig:
     SECRET_KEY = 'dev'
     DATABASE = os.path.join(basedir, 'instance', 'flaskr.sqlite')
 
+    @staticmethod
+    def init_app():
+        pass
+
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
     
