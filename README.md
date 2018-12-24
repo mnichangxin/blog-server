@@ -43,7 +43,8 @@ The personal website server.
 * Create virtual environment and activate:
 
 ```sh
-    python3 -m env env
+    python3 -m env env (Linux)
+    py -3 -m env env (Windows)
     . venv/bin/activate (Linux)
     venv\Scripts\activate (Windows)
 ```
@@ -51,7 +52,7 @@ The personal website server.
 * Install:
 
 ```sh
-    pip(3) install -e .
+    pip3 install -r requirements.txt
 ```
 
 * Configuration:
@@ -78,7 +79,7 @@ If `Windows`:
     flask init-db
 ```
 
-* Run start: 
+* Run start:
 
 ```sh
     flask run

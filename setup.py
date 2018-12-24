@@ -4,7 +4,7 @@ with open('README.md', 'r', encoding='UTF-8') as fh:
     long_description = fh.read()
 
 setup(
-    name='flaskr',
+    name='vue-blog-server',
     version='0.0.1',
     author='mnichangxin',
     author_email='mnichangxin@163.com',
