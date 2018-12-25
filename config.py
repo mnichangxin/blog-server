@@ -4,9 +4,12 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class BaseConfig:
+    '''
+    Base config
+    '''
     SECRET_KEY = 'dev'
-    # DATABASE = os.path.join(basedir, 'instance', 'flaskr.sqlite')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost/mydatabase'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod
     def init_app(app):
@@ -14,10 +17,16 @@ class BaseConfig:
 
 
 class DevelopmentConfig(BaseConfig):
+    '''
+    Development config
+    '''
     DEBUG = True
 
 
 class TestingConfig(BaseConfig):
+    '''
+    Testing config
+    '''
     TESTING = True
     WTF_CSRF_ENABLED = False
 

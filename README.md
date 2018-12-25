@@ -60,7 +60,7 @@ The personal website server.
 If `Linux`:
 
 ```sh
-    export FLASK_APP=flaskr
+    export FLASK_APP=app
     export FLASK_ENV=development
     flask run
 ```
@@ -68,7 +68,7 @@ If `Linux`:
 If `Windows`:
 
 ```sh
-    $env:FLASK_APP = "flaskr"
+    $env:FLASK_APP = "app"
     $env:FLASK_ENV = "development"
     flask run
 ```
