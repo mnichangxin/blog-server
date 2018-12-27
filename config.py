@@ -8,7 +8,7 @@ class BaseConfig:
     Base config
     '''
     SECRET_KEY = 'dev'
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost/mydatabase'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost:3306/mydatabase'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod
