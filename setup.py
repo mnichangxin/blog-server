@@ -17,7 +17,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'flask',
-        'flask-sqlalchemy'
+        'flask-sqlalchemy',
+        'python-dotenv'
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
