@@ -5,18 +5,29 @@ from . import db
 class Article(db.Model):
     __tablename__ = 'articles'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(length=30))
+    title = db.Column(db.String(30))
     date = db.Column(db.Datetime, default=datetime.utcnow)
-    category = db.Column()
+    category = db.Column(db.String(30), db.Foreignkey('categories.id'))
+    tags = db.Column()
 
     def __repr__(self):
         return '<Article %r>' % self.title
 
 
-class category(db.Model):
+class Category(db.Model):
     __tablename__ = 'categories'
-    article_id = db.Column(db.Integer)
-    category_name = db.Column(db.String(length=30))
+    id = db.Column(db.Integer)
+    category_name = db.Column(db.String(30))
 
-    def __repr__():
+    def __repr__(self):
         return '<Category %r>' % self.category_name
+
+
+class Tag(db.Model):
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer)
+    tag_name = db.Column(db.String(30))
+    article_id = db.Column(db.Integer, db.Foreignkey('articles.id'))
+
+    def __repr__(self):
+        return '<Tag %r>' % self.tag_name
