@@ -5,7 +5,7 @@ from . import db
 class Article(db.Model):
     __tablename__ = 'articles'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30))
+    title = db.Column(db.String(30), )
     date = db.Column(db.Datetime, default=datetime.utcnow)
     category = db.Column(db.String(30), db.Foreignkey('categories.id'))
     content = db.Column(db.Text, default='')
