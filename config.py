@@ -8,8 +8,8 @@ class BaseConfig:
     Base config`
     '''
     SECRET_KEY = 'dev'
-    SQLALCHEMY_DATABASE_URI = '''mysql+pymysql://root:root@localhost:3306
-                                                            /blog'''
+    SQLALCHEMY_DATABASE_URI = '''mysql+mysqlconnector://root:root@localhost:3306
+                                                    /blog?charset=utf8'''
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod

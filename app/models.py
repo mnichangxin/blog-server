@@ -7,7 +7,7 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), )
     date = db.Column(db.DateTime, default=datetime.utcnow)
-    category = db.Column(db.String(30), db.ForeignKey('categories.id'))
+    category = db.Column(db.Integer, db.ForeignKey('categories.id'))
     content = db.Column(db.Text, default='')
     tags = db.relationship('Tag', backref='article', lazy='dynamic')
 
