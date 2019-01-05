@@ -9,7 +9,7 @@ app = create_app()
 
 @app.cli.command()
 def test123():
-    click.echo('test...')
+    click.echo('test..')
 
 # from app.models import User, Follow, Role, Permission, Post, Comment
 # from app import create_app, db
