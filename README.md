@@ -73,12 +73,6 @@ If `Windows`:
     flask run
 ```
 
-* Init DateBase:
-
-```sh
-    flask init-db
-```
-
 * Run start:
 
 ```sh
