@@ -8,7 +8,7 @@ app = create_app()
 
 
 @app.cli.command()
-def test123():
+def init():
     try:
         db.create_all()
     except:
