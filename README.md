@@ -60,16 +60,16 @@ The personal website server.
 If `Linux`:
 
 ```sh
-    export FLASK_APP=app
-    export FLASK_ENV=development
+    [export FLASK_APP=app]
+    [export FLASK_ENV=development]
     flask run
 ```
 
 If `Windows`:
 
 ```sh
-    $env:FLASK_APP = "app"
-    $env:FLASK_ENV = "development"
+    [$env:FLASK_APP = "app"]
+    [$env:FLASK_ENV = "development"]
     flask run
 ```
 
