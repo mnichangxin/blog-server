@@ -30,5 +30,9 @@ class Tag(db.Model):
     tag_name = db.Column(db.String(30))
     article_id = db.Column(db.Integer, db.ForeignKey('articles.id'))
 
+    @staticmethod
+    def insert_tags():
+        pass
+
     def __repr__(self):
         return '<Tag %r>' % self.tag_name
