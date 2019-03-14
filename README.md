@@ -43,8 +43,8 @@ The personal website server.
 * Create virtual environment and activate:
 
 ```sh
-    python3 -m env env (Linux)
-    py -3 -m env env (Windows)
+    python3 -m venv venv (Linux)
+    py -3 -m venv venv (Windows)
     . venv/bin/activate (Linux)
     venv\Scripts\activate (Windows)
 ```
