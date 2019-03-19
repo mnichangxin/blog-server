@@ -6,6 +6,8 @@ from app.models import Article, Category, Tag
 
 app = create_app()
 
+# db.create_all()
+
 
 @app.cli.command()
 def init():
