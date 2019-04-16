@@ -6,7 +6,7 @@ The personal website server.
 
 ## V0.0.1 Flask
 
-* Project layout: 
+* Flask project demo layout: 
 
 ```
 
@@ -40,13 +40,20 @@ The personal website server.
 
 ```
 
-* Create virtual environment and activate:
+* Create virtual environment:
 
 ```sh
-    python3 -m venv venv (Linux)
-    py -3 -m venv venv (Windows)
-    . venv/bin/activate (Linux)
-    venv\Scripts\activate (Windows)
+    python3 -m venv venv
+    #OR (Windows)
+    py -3 -m venv venv
+```
+
+* Active virtual environment:
+
+```sh
+    . venv/bin/activate
+    #OR (Windows)
+    venv\Scripts\activate
 ```
 
 * Install:
@@ -57,20 +64,12 @@ The personal website server.
 
 * Configuration:
 
-If `Linux`:
-
 ```sh
     [export FLASK_APP=app]
     [export FLASK_ENV=development]
-    flask run
-```
-
-If `Windows`:
-
-```sh
+    #OR (Windows)
     [$env:FLASK_APP = "app"]
     [$env:FLASK_ENV = "development"]
-    flask run
 ```
 
 * Run start:
