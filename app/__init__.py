@@ -1,10 +1,10 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from config import config
-import click
+# from flask_sqlalchemy import SQLAlchemy
+from .db.models import db
 
-db = SQLAlchemy()
+from . import config, commands
 
+# db = SQLAlchemy()
 
 def create_app(config_name='default'):
     app = Flask(__name__)
