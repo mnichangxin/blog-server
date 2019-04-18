@@ -10,7 +10,8 @@ app = create_app()
 def init():
     try:
         db.create_all()
-    except:
-        click.echo('DB init fail..')
+    except Exception as e:
+        click.echo('DB init fail: ' + '\n')
+        print(e)
     else:
-        click.echo('DB init success...')
+        click.echo('DB init success!')

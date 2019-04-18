@@ -3,7 +3,7 @@ class BaseConfig:
     Base config`
     '''
     SECRET_KEY = 'dev'
-    SQLALCHEMY_DATABASE_URI = '''mysql+mysqlconnector://root:lichangxin678@localhost:3306
+    SQLALCHEMY_DATABASE_URI = '''mysql+mysqlconnector://root:12345678@localhost:3306
                                                     /blog?charset=utf8'''
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

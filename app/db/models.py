@@ -12,6 +12,14 @@ class Article(db.Model):
     tags = db.relationship('Tag')
     content = db.Column(db.Text, default='')
 
+    @staticmethod
+    def insert_articles():
+        article = {
+            'title': 'first',
+            'date': datetime.utcnow,
+            'content': 'The first content of article.'
+        }
+
     def __repr__(self):
         return '<Article %r>' % self.title
 
