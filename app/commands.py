@@ -1,6 +1,6 @@
 import click
 
-from . import create_app
+from app import create_app
 from .db.models import db
 
 app = create_app()
@@ -19,3 +19,4 @@ def initdb(drop):
         click.echo('Initialize error: ' + '\n' + e)
     else:
         click.echo('Initialized database.')
+

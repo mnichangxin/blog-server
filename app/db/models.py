@@ -1,18 +1,18 @@
 from datetime import datetime
-# from flask import db
-from flask_sqlalchemy import SQLAlchemy
-# from sqlalchemy import Integer, String, Text, Column, ForeignKey
+from flask_sqlalchemy import SQLAlchemy, Model
+from sqlalchemy import Integer, String, Text, Column, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
 class Article(db.Model):
     __tablename__ = 'articles'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30), )
-    date = db.Column(db.DateTime, default=datetime.utcnow)
-    category = db.relationship('Category')
-    tags = db.relationship('Tag')
-    content = db.Column(db.Text, default='')
+    id = Column(Integer, primary_key=True)
+    title = Column(String(30), )
+    date = Column(DateTime, default=datetime.utcnow)
+    category = relationship('Category')
+    tags = relationship('Tag')
+    content = Column(Text, default='')
 
     @staticmethod
     def insert_articles():
@@ -28,10 +28,10 @@ class Article(db.Model):
 
 class Category(db.Model):
     __tablename__ = 'categories'
-    id = db.Column(db.Integer, primary_key=True)
-    category_name = db.Column(db.String(30))
-    article_id = db.Column(db.Integer, db.ForeignKey('articles.id'))
-    article = db.relationship('Article')
+    id = Column(Integer, primary_key=True)
+    category_name = Column(String(30))
+    article_id = Column(Integer, ForeignKey('articles.id'))
+    article = relationship('Article')
 
     def __repr__(self):
         return '<Category %r>' % self.category_name
@@ -39,11 +39,10 @@ class Category(db.Model):
 
 class Tag(db.Model):
     __tablename__ = 'tags'
-    id = db.Column(db.Integer, primary_key=True)
-    tag_name = db.Column(db.String(30))
-    # article_id = db.Column(db.Integer, db.ForeignKey('articles.id'))
-    article_id = db.Column(db.Integer, db.ForeignKey('articles.id'))
-    artilce = db.relationship('Article')
+    id = Column(Integer, primary_key=True)
+    tag_name = Column(String(30))
+    article_id = Column(Integer, ForeignKey('articles.id'))
+    artilce = relationship('Article')
 
     @staticmethod
     def insert_tags():
@@ -51,4 +50,13 @@ class Tag(db.Model):
 
     def __repr__(self):
         return '<Tag %r>' % self.tag_name
+
+class User(db.Model):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    nickname = Column(String(30))
+    intro = Column(Text, default='')
+
+    def __repr__(self):
+        return '<User %r>' % self.nickname
 
