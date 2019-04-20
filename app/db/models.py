@@ -1,54 +1,50 @@
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy, Model
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, String, Text, Column, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
 db = SQLAlchemy()
 
-class Article(Model):
-    __tablename__ = 'articles'
+Base = declarative_base()
+
+class Association(Base):
+    __tablename__ = 'association'
+    left_id = Column(Integer, ForeignKey('left.id'), primary_key=True)
+    right_id = Column(Integer, ForeignKey('right.id'), primary_key=True)
+    post = relationship('Post', back_populates='tag')
+    tag = relationship('Tag', back_populates='post')
+
+class Post(db.Model):
+    __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
-    title = Column(String(30), )
-    date = Column(DateTime, default=datetime.utcnow)
-    category = relationship('Category')
-    tags = relationship('Tag')
+    title = Column(String(30))
     content = Column(Text, default='')
+    date = Column(DateTime, default=datetime.utcnow)
+    category = relationship('Category', back_populates='post')
+    tag = relationship('Association', back_populates='post')
+    category_id = Column(Integer, ForeignKey('category.id'))
+    tag_id = Column(Integer, ForeignKey('tag.id'))
 
     def __repr__(self):
-        return '<Article %r>' % self.title
+        return '<Post %r>' % self.title
 
-
-class Category(Model):
-    __tablename__ = 'categories'
+class Category(db.Model):
+    __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
     category_name = Column(String(30))
-    article_id = Column(Integer, ForeignKey('articles.id'))
-    article = relationship('Article')
+    posts = relationship('Post', cascade='all', back_populates='category')
 
     def __repr__(self):
         return '<Category %r>' % self.category_name
 
-
-class Tag(Model):
-    __tablename__ = 'tags'
+class Tag(db.Model):
+    __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
     tag_name = Column(String(30))
-    article_id = Column(Integer, ForeignKey('articles.id'))
-    artilce = relationship('Article')
-
-    @staticmethod
-    def insert_tags():
-        pass
+    posts = relationship('Association', cascade='all', back_populates='tag')
 
     def __repr__(self):
         return '<Tag %r>' % self.tag_name
 
-class User(Model):
-    __tablename__ = 'user'
-    id = Column(Integer, primary_key=True)
-    nickname = Column(String(30))
-    intro = Column(Text, default='')
-
-    def __repr__(self):
-        return '<User %r>' % self.nickname
 

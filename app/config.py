@@ -1,7 +1,5 @@
 class BaseConfig:
-    '''
-    Base config`
-    '''
+    '''Base config'''
     SECRET_KEY = 'dev'
     SQLALCHEMY_DATABASE_URI = '''mysql+mysqlconnector://root:12345678@localhost:3306
                                                     /blog?charset=utf8'''
@@ -13,16 +11,12 @@ class BaseConfig:
 
 
 class DevelopmentConfig(BaseConfig):
-    '''
-    Development config
-    '''
+    '''Development config'''
     DEBUG = True
 
 
 class TestingConfig(BaseConfig):
-    '''
-    Testing config
-    '''
+    '''Testing config'''
     TESTING = True
     WTF_CSRF_ENABLED = False
 

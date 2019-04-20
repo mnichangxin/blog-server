@@ -20,5 +20,5 @@ def create_app(config_name='default'):
     app.app_context().push()
 
     from . import commands
-    
+
     return app
