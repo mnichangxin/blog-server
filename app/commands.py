@@ -1,11 +1,9 @@
 import click
 
-from app import create_app
+from flask import current_app
 from .db.models import db
 
-app = create_app()
-
-@app.cli.command()
+@current_app.cli.command()
 @click.option('--drop', is_flag=True, help='Create after drop.')
 def initdb(drop):
     '''Initialize the databases.'''

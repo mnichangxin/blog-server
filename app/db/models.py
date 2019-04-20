@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
-class Article(db.Model):
+class Article(Model):
     __tablename__ = 'articles'
     id = Column(Integer, primary_key=True)
     title = Column(String(30), )
@@ -14,19 +14,11 @@ class Article(db.Model):
     tags = relationship('Tag')
     content = Column(Text, default='')
 
-    @staticmethod
-    def insert_articles():
-        article = {
-            'title': 'first',
-            'date': datetime.utcnow,
-            'content': 'The first content of article.'
-        }
-
     def __repr__(self):
         return '<Article %r>' % self.title
 
 
-class Category(db.Model):
+class Category(Model):
     __tablename__ = 'categories'
     id = Column(Integer, primary_key=True)
     category_name = Column(String(30))
@@ -37,7 +29,7 @@ class Category(db.Model):
         return '<Category %r>' % self.category_name
 
 
-class Tag(db.Model):
+class Tag(Model):
     __tablename__ = 'tags'
     id = Column(Integer, primary_key=True)
     tag_name = Column(String(30))
@@ -51,7 +43,7 @@ class Tag(db.Model):
     def __repr__(self):
         return '<Tag %r>' % self.tag_name
 
-class User(db.Model):
+class User(Model):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     nickname = Column(String(30))
