@@ -4,39 +4,28 @@ The personal website server.
 
 **Notes: All environments depend on `Python ^3.7`.**
 
-## V0.0.1 Flask
+## V1.0.0 Flask
 
 * Flask project demo layout: 
 
 ```
 
-├── flaskr/
+├── vue-blog-server/
+├── app/
 │   ├── __init__.py
-│   ├── db.py
-│   ├── schema.sql
-│   ├── auth.py
-│   ├── blog.py
-│   ├── templates/
-│   │   ├── base.html
-│   │   ├── auth/
-│   │   │   ├── login.html
-│   │   │   └── register.html
-│   │   └── blog/
-│   │       ├── create.html
-│   │       ├── index.html
-│   │       └── update.html
-│   └── static/
-│       └── style.css
-├── tests/
-│   ├── conftest.py
-│   ├── data.sql
-│   ├── test_factory.py
-│   ├── test_db.py
-│   ├── test_auth.py
-│   └── test_blog.py
+│   ├── commands.py
+│   ├── config.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── blog/
+|   |   └── admin/
+│   └── db/
+│       ├── __init__.py
+|       └── models.py
 ├── venv/
-├── setup.py
-└── MANIFEST.in
+├── .flaskenv
+├── MANIFEST.in
+└── requirements.txt
 
 ```
 
