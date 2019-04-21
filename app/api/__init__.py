@@ -1,16 +1,12 @@
 from flask import Blueprint, jsonify
-from datetime import datetime
-# from ..db.models import db, Article, Category, Tag
 
 api = Blueprint('api', __name__)
 
 @api.route('/')
-def root():
-    return 'Api connection...'
+def get_api():
+    return jsonify({
+        'version': '1.0'
+    })
 
-# @api.route('/view')
-# def view():
-#     Article.query()
-#     return jsonify({
-#         'name': 1
-#     })
+from . import blog, admin
+
