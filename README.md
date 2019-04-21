@@ -11,17 +11,17 @@ The personal website server.
 ```
 
 ├── vue-blog-server/
-├── app/
-│   ├── __init__.py
-│   ├── commands.py
-│   ├── config.py
-│   ├── api/
-│   │   ├── __init__.py
-│   │   ├── blog/
-|   |   └── admin/
-│   └── db/
-│       ├── __init__.py
-|       └── models.py
+|   ├── app/
+|       ├── __init__.py
+|       ├── commands.py
+|       ├── config.py
+|       ├── api/
+|       │   ├── __init__.py
+|       │   ├── blog/
+|       |   └── admin/
+|       └── db/
+|           ├── __init__.py
+|           └── models.py
 ├── venv/
 ├── .flaskenv
 ├── MANIFEST.in
