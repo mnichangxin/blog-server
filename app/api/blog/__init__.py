@@ -1,7 +1,8 @@
-from flask import jsonify
-from .. import api
+from flask import Blueprint, jsonify
 
-@api.route('/blog')
-@api.route('/blog/index')
+blog = Blueprint('blog', __name__)
+
+@blog.route('/')
+@blog.route('/index')
 def get_index():
     return jsonify('Blog index')

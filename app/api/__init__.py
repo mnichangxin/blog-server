@@ -8,5 +8,4 @@ def get_api():
         'version': '1.0'
     })
 
-from . import blog, admin
 
