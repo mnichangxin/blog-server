@@ -1,6 +1,6 @@
-# vue-blog-server
+# blog-server
 
-The personal website server.
+Blog server, powered by python.
 
 **Notes: All environments depend on `Python ^3.7`.**
 
