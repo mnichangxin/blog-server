@@ -10,7 +10,7 @@ Blog server, powered by python.
 
 ```
 
-├── vue-blog-server/
+├── blog-server/
 |   ├── app/
 |       ├── __init__.py
 |       ├── commands.py

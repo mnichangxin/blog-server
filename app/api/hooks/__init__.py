@@ -1,6 +1,6 @@
 import os, time
 from concurrent.futures import ThreadPoolExecutor
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 
 hooks = Blueprint('hooks', __name__)
 
@@ -10,8 +10,9 @@ def exec_sh():
 
 @hooks.route('/payload', methods=['POST'])
 def payload():
-    executor = ThreadPoolExecutor(1)
-    executor.submit(exec_sh)
+    print(request.get_json())
+    # executor = ThreadPoolExecutor(1)
+    # executor.submit(exec_sh)
     return jsonify({
         'version': '1.0'
     })
