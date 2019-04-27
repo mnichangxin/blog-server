@@ -20,6 +20,9 @@ def create_app(config_name='default'):
     from .api.admin import admin as api_admin_blueprint
     app.register_blueprint(api_admin_blueprint, url_prefix='/api/v1/admin')
 
+    from .api.hooks import hooks as api_hooks_blueprint
+    app.register_blueprint(api_hooks_blueprint, url_prefix='/api/v1/hooks')
+
     app.app_context().push()
 
     from . import commands
