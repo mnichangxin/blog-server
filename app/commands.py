@@ -17,7 +17,8 @@ def initdb(drop):
         db.create_all()
     except click.Abort:
         click.echo('Nothing operation to database.')
-    except Exception:
+    except Exception as e:
+        print(e)
         click.echo('Initialize the databases error.')
     else:
         click.echo('Initialized database success.')

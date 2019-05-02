@@ -1,7 +1,10 @@
 from datetime import datetime
 
 from flask import Blueprint, jsonify
-from ...db.models import db, Post, Category, Tag
+# from ...db.models import db, Post, Category, Tag
+from ...db.models.post import PostModel
+from ...db.models.category import CategoryModel
+from ...db.models.tag import TagModel
 
 admin = Blueprint('admin', __name__)
 
