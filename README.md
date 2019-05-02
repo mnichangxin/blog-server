@@ -24,7 +24,6 @@ Blog server, powered by python.
 |           └── models.py
 ├── venv/
 ├── .flaskenv
-├── MANIFEST.in
 └── requirements.txt
 
 ```
