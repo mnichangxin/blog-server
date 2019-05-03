@@ -1,8 +1,6 @@
 from flask import Flask
 from .db.models import db
-from .config import config
-
-import click
+from .config.config import config
 
 def create_app(config_name='default'):
     app = Flask(__name__)
@@ -22,6 +20,7 @@ def create_app(config_name='default'):
 
     app.app_context().push()
 
-    from . import commands
+    from .libs import commands, error_handler
 
     return app
+

@@ -1,12 +1,29 @@
-class Error(Exception):
-    def __init__(self, message, errcode=500, detail=None, msg_en=None):
-        self.message = message
-        self.errcode = errcode
-        self.detail = detail
-        self.msg_en = msg_en
-    
-    def __repr__(self):
-        return '{}--{}'.format(self.message, self.detail)
+from werkzeug.exceptions import HTTPException
 
-    def __str__(self):
-        return '{}--{}'.format(self.message, self.detail)
+class APIException(HTTPException):
+    msg = 'make a mistake'
+    code = 500
+    err_code = 900
+
+    def __init__(self, msg=None, code=None, error_code=None, headers=None):
+        if msg:
+            self.msg = msg
+        if code:
+            self.code = code
+        if error_code:
+            self.err_code = error_code
+        super(APIException, self).__init__(msg, None)
+    
+    '''
+    Custom info return.
+    '''
+    # def __repr__(self):
+    #     return '<APIException>: {}--{}'.format(self.code, self.msg)
+
+    # def __str__(self):
+    #     return '<APIException>: {}--{}'.format(self.code, self.msg)
+
+class ServerException(APIException):
+    msg = 'make a mistake'
+    code = 500
+    err_code = 999
