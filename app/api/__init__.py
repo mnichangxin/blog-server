@@ -8,4 +8,3 @@ def get_api():
         'version': '1.0'
     })
 
-

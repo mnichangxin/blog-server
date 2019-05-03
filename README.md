@@ -13,15 +13,22 @@ Blog server, powered by python.
 ├── blog-server/
 |   ├── app/
 |       ├── __init__.py
-|       ├── commands.py
-|       ├── config.py
+|       ├── config/
+|       │   ├── __init__.py
+|       |   └── config.py
+|       ├── libs/
+|       │   ├── __init__.py
+|       │   ├── commands.py
+|       │   ├── error.py
+|       |   └── error_handler.py
 |       ├── api/
 |       │   ├── __init__.py
 |       │   ├── blog/
 |       |   └── admin/
 |       └── db/
 |           ├── __init__.py
-|           └── models.py
+|           └── models
+|               └── __init__.py
 ├── venv/
 ├── .flaskenv
 └── requirements.txt
