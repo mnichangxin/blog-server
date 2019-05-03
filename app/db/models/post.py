@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Integer, String, Text, DateTime, Column
-from . import db
+from .. import db
 
 class PostModel(db.Model):
     __tablename__ = 'post'

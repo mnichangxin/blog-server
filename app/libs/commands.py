@@ -1,7 +1,7 @@
 import click
 
 from flask import current_app
-from ..db.models import db
+from ..db import db
 
 @current_app.cli.command()
 @click.option('--drop', is_flag=True, help='Create after drop.')
@@ -18,7 +18,6 @@ def initdb(drop):
     except click.Abort:
         click.echo('Nothing operation to database.')
     except Exception as e:
-        print(e)
         click.echo('Initialize the databases error.')
     else:
         click.echo('Initialized database success.')
