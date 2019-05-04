@@ -1,5 +1,6 @@
 from datetime import datetime
 from ..libs.error import APIException
+from . import db
 from .models import PostModel, CategoryModel, TagModel
 
 
@@ -9,7 +10,8 @@ class Post:
     
     def insertPost(self):
         post = PostModel('title1', '123456', datetime.utcnow())
-        
+        db.session.add(post)
+        db.session.commit()
 
     def getPosts(self, offset=0, limit=10):
         if not (limit and limit <= 50):
