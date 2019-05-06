@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from flask import Blueprint, jsonify
+from ...libs.decorators import resp_wrapper
 from ...db import Post
 
 admin = Blueprint('admin', __name__)
@@ -14,5 +15,6 @@ def logout():
     return 'admin logout.'
 
 @admin.route('/publish', methods=['POST'])
+@resp_wrapper
 def publish():
     return Post().insertPost()

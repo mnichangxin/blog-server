@@ -5,23 +5,12 @@ from . import db
 from .models import PostModel, CategoryModel, TagModel
 
 
-class Post:    
+class Post:
     def insertPost(self):
-        try:
-            post = PostModel(title='title1', content='123456', first_date=datetime.utcnow())
-            db.session.add(post)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            return jsonify({
-                'status': 0,
-                'msg': 'err'
-            })
-        else:
-            return jsonify({
-                'status': 1,
-                'msg': '成功'
-            })
+        post = PostModel(title='title1', content='123456', first_date=datetime.utcnow())
+        db.session.add(post)
+        db.session.commit()
+        return ''
 
     def getPosts(self, offset=0, limit=10):
         if not (limit and limit <= 50):
