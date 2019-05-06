@@ -15,4 +15,4 @@ def logout():
 
 @admin.route('/publish', methods=['POST'])
 def publish():
-    return 'publish'
+    return Post().insertPost()

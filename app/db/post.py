@@ -1,17 +1,27 @@
+from flask import jsonify
 from datetime import datetime
 from ..libs.error import APIException
 from . import db
 from .models import PostModel, CategoryModel, TagModel
 
 
-class Post:
-    def __init__(self, *args, **kwargs):
-        super(Post, self).__init__(*args, **kwargs)
-    
+class Post:    
     def insertPost(self):
-        post = PostModel('title1', '123456', datetime.utcnow())
-        db.session.add(post)
-        db.session.commit()
+        try:
+            post = PostModel(title='title1', content='123456', first_date=datetime.utcnow())
+            db.session.add(post)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return jsonify({
+                'status': 0,
+                'msg': 'err'
+            })
+        else:
+            return jsonify({
+                'status': 1,
+                'msg': '成功'
+            })
 
     def getPosts(self, offset=0, limit=10):
         if not (limit and limit <= 50):
