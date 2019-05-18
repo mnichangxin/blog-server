@@ -6,6 +6,13 @@ from ...db import Post
 
 admin = Blueprint('admin', __name__)
 
+@admin.route('')
+@admin.route('/')
+def get_admin_api():
+    return jsonify({
+        'api': 'admin'
+    })
+
 @admin.route('/login', methods=['POST'])
 def login():
     return 'admin login.'
