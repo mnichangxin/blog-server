@@ -14,8 +14,7 @@ Blog server, powered by python.
 |   ├── app/
 |       ├── __init__.py
 |       ├── config/
-|       │   ├── __init__.py
-|       |   └── config.py
+|       |   └── __init__.py
 |       ├── libs/
 |       │   ├── __init__.py
 |       │   ├── commands.py
@@ -25,10 +24,10 @@ Blog server, powered by python.
 |       │   ├── __init__.py
 |       │   ├── blog/
 |       |   └── admin/
-|       └── db/
-|           ├── __init__.py
-|           └── models
-|               └── __init__.py
+|       ├── dao/
+|       |   └── __init__.py
+|       └── model/
+|           └── __init__.py
 ├── venv/
 ├── .flaskenv
 └── requirements.txt
