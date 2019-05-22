@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from ...db import Post
+from ...dao import Post
 
 blog = Blueprint('blog', __name__)
 

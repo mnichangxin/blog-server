@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask import Blueprint, jsonify, request
 from ...libs.decorators import resp_wrapper
-from ...db import Post
+from ...dao import Post
 
 admin = Blueprint('admin', __name__)
 

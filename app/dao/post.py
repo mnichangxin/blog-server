@@ -1,8 +1,8 @@
 from flask import jsonify
 from datetime import datetime
 from ..libs.error import APIException
-from . import db
-from .models import PostModel, CategoryModel, TagModel
+from ..model import db
+from ..model import PostModel, CategoryModel, TagModel
 
 
 class Post:
