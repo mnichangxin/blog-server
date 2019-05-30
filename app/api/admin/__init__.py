@@ -9,5 +9,6 @@ admin = Blueprint('admin', __name__)
 @admin.route('/publish', methods=['POST'])
 @resp_wrapper
 def publish():
-    data = request.data
-    return Post().insertPost()
+    data = request.form
+    print(data)
+    return Post().insertPost('123', '456', a=2)
