@@ -7,11 +7,10 @@ from ..model import PostModel, CategoryModel, TagModel
 
 class Post:
     def insertPost(self, *arg, **karg):
-        print(arg)
-        print(karg)
-        post = PostModel(title='title1', content='123456', first_date=datetime.utcnow())
-        # db.session.add(post)
-        # db.session.commit()
+        # post = PostModel(title='title1', content='123456', first_date=datetime.utcnow())
+        post = PostModel(arg)
+        db.session.add(post)
+        db.session.commit()
         return ''
 
     def getPosts(self, offset=0, limit=10):

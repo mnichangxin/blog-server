@@ -1,7 +1,7 @@
 from werkzeug.exceptions import HTTPException
 
 class APIException(HTTPException):
-    msg = 'make a mistake'
+    msg = '系统错误'
     code = 500
     err_code = 900
 
@@ -24,6 +24,6 @@ class APIException(HTTPException):
     #     return '<APIException>: {}--{}'.format(self.code, self.msg)
 
 class ServerException(APIException):
-    msg = 'make a mistake'
+    msg = '系统未知错误'
     code = 500
     err_code = 999
