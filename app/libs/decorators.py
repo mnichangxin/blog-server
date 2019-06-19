@@ -7,5 +7,5 @@ def resp_wrapper(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            return 'Unknown mistake'
+            raise APIException('服务端异常', 500)
     return decorator

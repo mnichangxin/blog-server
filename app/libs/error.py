@@ -5,13 +5,7 @@ class APIException(HTTPException):
     code = 500
     err_code = 900
 
-    def __init__(self, msg=None, code=None, error_code=None, headers=None):
-        if msg:
-            self.msg = msg
-        if code:
-            self.code = code
-        if error_code:
-            self.err_code = error_code
+    def __init__(self, msg=msg, code=code, err_code=err_code, headers=None):
         super(APIException, self).__init__(msg, None)
     
     '''
@@ -27,3 +21,6 @@ class ServerException(APIException):
     msg = '系统未知错误'
     code = 500
     err_code = 999
+
+    def __init__(self, msg=msg, code=code, err_code=err_code):
+        super(ServerException, self).__init__(msg, code, err_code)
