@@ -11,7 +11,7 @@ Blog server, powered by python.
 ```
 
 ├── blog-server/
-|   ├── app/
+|   ├── server/
 |       ├── __init__.py
 |       ├── config/
 |       |   └── __init__.py
