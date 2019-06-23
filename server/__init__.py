@@ -1,6 +1,6 @@
 from flask import Flask
-from .model import db
-from .config import config
+from .model.common import db
+from .config.common import config
 
 def create_app(config_name='default'):
     app = Flask(__name__)
@@ -20,7 +20,7 @@ def create_app(config_name='default'):
 
     app.app_context().push()
 
-    from .libs import commands, error_handler
+    from .utils.common import commands
 
     return app
 
