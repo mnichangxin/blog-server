@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from ...utils.decorators.res_wrapper import resp_wrapper
-from ...service
+from ...service.admin.common import post_publish
 
 admin = Blueprint('admin', __name__)
 
@@ -8,4 +8,4 @@ admin = Blueprint('admin', __name__)
 @resp_wrapper
 def publish():
     params = request.get_json()
-    return Post().insertPost(params)
+    return post_publish(params)

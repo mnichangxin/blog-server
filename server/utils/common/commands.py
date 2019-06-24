@@ -1,7 +1,7 @@
 import click
 
 from flask import current_app
-from ...model import db
+from ...model.common import db
 
 @current_app.cli.command()
 @click.option('--drop', is_flag=True, help='Create after drop.')
