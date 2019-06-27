@@ -2,14 +2,13 @@ from functools import wraps
 from flask import make_response, jsonify
 from ..exception.exception import APIException, ServerException
 
-import json
 
-def resp_success():
-    return jsonify({
+def resp_success(*args, **kwargs):
+    return make_response(jsonify({
         'status': 0,
         'msg': '成功',
-        'data': []
-    })
+        'data': kwargs['data']
+    }), 200)
 
 def resp_api_error(*args, **kwargs):
     return make_response(jsonify({
@@ -29,7 +28,7 @@ def resp_wrapper(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         try:
-            return func(*args, **kwargs)
+            return resp_success(data=func(*args, **kwargs))
         except APIException as apiExc:
             return resp_api_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
         except ServerException as serverExc:
