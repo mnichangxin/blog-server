@@ -18,11 +18,11 @@ def resp_api_error(**kwargs):
     }), kwargs.get('code') or 400)
 
 def resp_server_error(**kwargs):
-    return jsonify({
+    return make_response(jsonify({
         'status': -1,
         'msg': kwargs.get('msg') or '服务端错误',
         'data': None
-    }, kwargs.get('code') or 500)
+    }), kwargs.get('code') or 500)
 
 def resp_wrapper(func):
     @wraps(func)
@@ -33,6 +33,6 @@ def resp_wrapper(func):
             return resp_api_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
         except ServerException as serverExc:
             return resp_server_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
-        else:
-            return resp_success()
+        except Exception as unkownExc:
+            return resp_server_error(**{ 'msg': '服务端错误', 'code': 500 })
     return decorator
