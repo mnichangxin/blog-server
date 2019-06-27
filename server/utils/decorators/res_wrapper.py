@@ -3,32 +3,32 @@ from flask import make_response, jsonify
 from ..exception.exception import APIException, ServerException
 
 
-def resp_success(*args, **kwargs):
+def resp_success(**kwargs):
     return make_response(jsonify({
         'status': 0,
-        'msg': '成功',
-        'data': kwargs['data']
-    }), 200)
+        'msg': kwargs.get('msg') or '成功',
+        'data': kwargs.get('data') or None
+    }), kwargs.get('code') or 200)
 
-def resp_api_error(*args, **kwargs):
+def resp_api_error(**kwargs):
     return make_response(jsonify({
         'status': -1,
-        'msg': kwargs['msg'],
+        'msg': kwargs.get('msg') or '请求无效',
         'data': None
-    }), kwargs['code'])
+    }), kwargs.get('code') or 400)
 
-def resp_server_error(*args, **kwargs):
+def resp_server_error(**kwargs):
     return jsonify({
         'status': -1,
-        'msg': kwargs['msg'],
+        'msg': kwargs.get('msg') or '服务端错误',
         'data': None
-    }, kwargs['code'])
+    }, kwargs.get('code') or 500)
 
 def resp_wrapper(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         try:
-            return resp_success(data=func(*args, **kwargs))
+            return resp_success(**func(*args, **kwargs))
         except APIException as apiExc:
             return resp_api_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
         except ServerException as serverExc:
