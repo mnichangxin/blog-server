@@ -4,6 +4,7 @@ from ...dao.post import Post
 from ...utils.exception.exception import APIException, ServerException
 from ...utils.decorators.is_json import is_json
 
+import traceback
 
 @is_json
 def post_publish(params):
@@ -14,8 +15,8 @@ def post_publish(params):
     if title is None:
         raise APIException('参数错误', 400)
     try:
-        datetime.strptime(created_date, '%Y-%m-%d %X')
-    except ValueError:
+        datetime.strptime(created_date.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
+    except (AttributeError, ValueError):
         raise APIException('不合法的创建时间', 400)
     try:
         Post.insert(title=title, content=content, created_date=created_date, updated_date=updated_date)
