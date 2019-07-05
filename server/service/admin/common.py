@@ -17,7 +17,7 @@ def post_publish(params):
         raise APIException('参数错误', 400)
     if category is not None:
         if Category.queryByCategoryName(category) is not None:
-            
+            Category.insert(category_name=category)
     try:
         datetime.strptime(created_date.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
     except (AttributeError, ValueError):
