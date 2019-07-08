@@ -35,8 +35,8 @@ def post_publish(params):
         'msg': '发布成功'
     }
 
-# @is_json
-# def post_update(params):
-#     title = params.get('title')
-#     content = params.get('content')
-#     created_date = params.get('created_date')
+@is_json
+def post_update(params):
+    title = params.get('title')
+    content = params.get('content')
+    created_date = params.get('created_date')
