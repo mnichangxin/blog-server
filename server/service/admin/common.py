@@ -18,6 +18,8 @@ def post_publish(params):
     if category is not None:
         if Category.queryByCategoryName(category) is not None:
             Category.insert(category_name=category)
+        else:
+            raise
     try:
         datetime.strptime(created_date.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
     except (AttributeError, ValueError):

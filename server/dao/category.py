@@ -5,7 +5,6 @@ class Category:
     @staticmethod
     def insert(**kwargs):
         db.session.add(CategoryModel(**kwargs))
-        db.session.commit()
     @staticmethod
     def queryById(id):
         return CategoryModel.query.filter_by(id=id).first()
