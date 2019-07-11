@@ -1,5 +1,5 @@
 from ..model.common import db
-from ..model.category import CategoryModel
+from ..model.tb_category import CategoryModel
 
 class Category:
     @staticmethod
