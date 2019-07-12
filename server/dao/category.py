@@ -4,7 +4,10 @@ from ..model.tb_category import CategoryModel
 class Category:
     @staticmethod
     def insert(**kwargs):
-        db.session.add(CategoryModel(**kwargs))
+        category = CategoryModel(**kwargs)
+        db.session.add(category)
+        db.session.flush()
+        return category 
     @staticmethod
     def queryById(id):
         return CategoryModel.query.filter_by(id=id).first()

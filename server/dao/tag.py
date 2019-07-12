@@ -6,3 +6,9 @@ class Tag:
     def insert(**kwargs):
         tag = TagModel(**kwargs)
         db.session.add(tag)
+        db.session.flush()
+        return tag
+    @staticmethod
+    def queryByTagName(tag_name):
+        return TagModel.query.filter_by(tag_name=tag_name).first()
+

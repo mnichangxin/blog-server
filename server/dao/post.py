@@ -6,3 +6,5 @@ class Post:
     def insert(**kwargs):
         post = PostModel(**kwargs)
         db.session.add(post)
+        db.session.flush()
+        return post
