@@ -22,8 +22,8 @@ Blog server, powered by python.
 |       |   └── error_handler.py
 |       ├── api/
 |       │   ├── __init__.py
-|       │   ├── blog/
-|       |   └── admin/
+|       │   ├── view/
+|       |   └── internal/
 |       ├── service/
 |       |   └── __init__.py
 |       ├── dao/
