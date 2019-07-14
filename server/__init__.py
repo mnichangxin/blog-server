@@ -9,14 +9,14 @@ def create_app(config_name='default'):
 
     db.init_app(app)
 
-    from .api import api as api_blueprint
+    from .api.common import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api/v1')
 
-    from .api.blog import blog as api_blog_blueprint
-    app.register_blueprint(api_blog_blueprint, url_prefix='/api/v1/blog')
+    from .api.internal.common import internal as api_internal_blueprint
+    app.register_blueprint(api_internal_blueprint, url_prefix='/api/v1/internal')
 
-    from .api.admin import admin as api_admin_blueprint
-    app.register_blueprint(api_admin_blueprint, url_prefix='/api/v1/admin')
+    from .api.view.common import view as api_view_blueprint
+    app.register_blueprint(api_view_blueprint, url_prefix='/api/v1/view')
 
     app.app_context().push()
 

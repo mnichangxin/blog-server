@@ -1,10 +1,10 @@
 from flask import Blueprint, request
 from ...utils.decorators.res_wrapper import resp_wrapper
-from ...service.admin.common import post_publish
+from ...service.common import post_publish
 
-admin = Blueprint('admin', __name__)
+internal = Blueprint('internal', __name__)
 
-@admin.route('/publish', methods=['POST'])
+@internal.route('/post_publish', methods=['POST'])
 @resp_wrapper
 def publish():
     params = request.get_json()
