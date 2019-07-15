@@ -6,6 +6,5 @@ internal = Blueprint('internal', __name__)
 
 @internal.route('/post_publish', methods=['POST'])
 @resp_wrapper
-def publish():
-    params = request.get_json()
-    return post_publish(params)
+def post_publish():
+    return post_publish(request.get_json())
