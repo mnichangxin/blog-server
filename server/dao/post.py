@@ -8,3 +8,6 @@ class Post:
         db.session.add(post)
         db.session.flush()
         return post
+    @staticmethod
+    def query(page_num, page_size, *args, **kwargs):
+        return PostModel.query.paginate(page_num, page_size)

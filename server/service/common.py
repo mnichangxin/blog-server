@@ -1,11 +1,11 @@
 from datetime import datetime
-from ...dao.post import Post
-from ...dao.category import Category
-from ...dao.tag import Tag
-from ...dao.post_tag import PostTag
-from ...utils.exception.exception import APIException, ServerException
-from ...utils.decorators.is_json import is_json
-from ...utils.decorators.commit import commit
+from ..dao.post import Post
+from ..dao.category import Category
+from ..dao.tag import Tag
+from ..dao.post_tag import PostTag
+from ..utils.exception.exception import APIException, ServerException
+from ..utils.decorators.is_json import is_json
+from ..utils.decorators.commit import commit
 
 def insert_category(category_name):
     category_query = Category.queryByCategoryName(category_name)
@@ -70,3 +70,16 @@ def post_update(params):
     title = params.get('title')
     content = params.get('content')
     created_date = params.get('created_date')
+
+@commit
+@is_json
+def post_query(params):
+    page_num = params.get('page_num') or 1
+    page_size = params.get('page_size') or 10
+    if isinstance(page_num, int) is not True or isinstance(page_size, int) is not True:
+        raise APIException('page_num 或 page_size 不合法')
+    post_info = Post.query(page_num, page_size)
+    return {
+        'msg': '查询成功',
+        'data': post_info
+    }
