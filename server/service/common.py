@@ -23,7 +23,7 @@ def insert_tags(tag_names):
 
 def insert_post_tag(post_id, tag_ids):
     return [
-        PostTag.insert(post_id=post_id, tag_id=tag_id) 
+        PostTag.insert(post_id=post_id, tag_id=tag_id)
         for tag_id in tag_ids if PostTag.queryByPostIdAndTagId(post_id, tag_id) is None
     ]
 
