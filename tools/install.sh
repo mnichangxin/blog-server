@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pip3 list
+tools/with_venv.sh pip3 install -r requirements.txt

@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-source venv/bin/activate && sh tools/install.sh
+VENV_DIRNAME="venv" 
+if [ ! -d $VENV_DIRNAME ]
+then
+    python3 -m venv $VENV_DIRNAME
+fi
+source $VENV_DIRNAME/bin/activate && "$@"
