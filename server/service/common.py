@@ -7,6 +7,9 @@ from ..utils.exception.exception import APIException, ServerException
 from ..utils.decorators.is_json import is_json
 from ..utils.decorators.commit import commit
 
+'''
+    Insert
+'''
 def insert_category(category_name):
     category_query = Category.queryByCategoryName(category_name)
     return (
@@ -25,6 +28,36 @@ def insert_post_tag(post_id, tag_ids):
     return [
         PostTag.insert(post_id=post_id, tag_id=tag_id)
         for tag_id in tag_ids if PostTag.queryByPostIdAndTagId(post_id, tag_id) is None
+    ]
+
+'''
+    Query
+'''
+def query_category(category_id):
+    category_query = Category.queryById(category_id)
+    return {
+        'id': category_query.id,
+        'name': category_query.category_name 
+    }
+
+def queryTags(tag_ids):
+    return [ { k: v for k, v in Tag.queryByTagId(tag_id).__dict__ if k == 'id' or k == 'tag_name' } for tag_id in tag_ids]
+
+def queryPostTags(post_id):
+    return queryTags([post_tag.tag_id for post_tag in PostTag.queryByPostId(post_id)])
+
+def query_posts(posts):
+    return [
+        {
+            'id': post.id,
+            'title': post.title,
+            'content': post.content,
+            'category': query_category(post.category_id),
+            # 'tags': queryPostTags(post.id),
+            'created_date': post.created_date,
+            'updated_date': post.updated_date,
+        } 
+        for post in posts
     ]
 
 @commit
@@ -65,6 +98,7 @@ def post_publish(params):
         'msg': '发布成功'
     }
 
+@commit
 @is_json
 def post_update(params):
     title = params.get('title')
@@ -78,8 +112,14 @@ def post_query(params):
     page_size = params.get('page_size') or 10
     if isinstance(page_num, int) is not True or isinstance(page_size, int) is not True:
         raise APIException('page_num 或 page_size 不合法')
-    post_info = Post.query(page_num, page_size)
+    posts = Post.query(page_num, page_size)
+    posts_data = query_posts(posts.items)
     return {
         'msg': '查询成功',
-        'data': post_info
+        'data': {
+            'page_index': posts.page,
+            'page_count': posts.pages,
+            'total': posts.total,
+            'data': posts_data
+        }
     }
