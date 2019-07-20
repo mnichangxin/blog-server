@@ -6,5 +6,5 @@ view = Blueprint('view', __name__)
 
 @view.route('/post_query', methods=['GET'])
 @resp_wrapper
-def post_query():
+def api_post_query():
     return post_query(request.get_json())
