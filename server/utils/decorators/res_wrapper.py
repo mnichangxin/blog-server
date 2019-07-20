@@ -1,3 +1,5 @@
+import logging
+
 from functools import wraps
 from flask import make_response, jsonify
 from ..exception.exception import APIException, ServerException
@@ -34,5 +36,6 @@ def resp_wrapper(func):
         except ServerException as serverExc:
             return resp_server_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
         except Exception as unkownExc:
+            logging.error(unkownExc)
             return resp_server_error(**{ 'msg': '服务端错误', 'code': 500 })
     return decorator
