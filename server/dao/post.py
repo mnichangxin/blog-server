@@ -10,4 +10,4 @@ class Post:
         return post
     @staticmethod
     def query(page_num, page_size, *args, **kwargs):
-        return PostModel.query.paginate(page_num, page_size)
+        return PostModel.query.paginate(page_num, page_size, error_out=False)

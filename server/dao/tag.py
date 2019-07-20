@@ -9,8 +9,8 @@ class Tag:
         db.session.flush()
         return tag
     @staticmethod
-    def queryByTagId(tag_id):
-        return TagModel.query.filter_by(tag_id=tag_id).first()
+    def queryByTagId(id):
+        return TagModel.query.filter_by(id=id).first()
     @staticmethod
     def queryByTagName(tag_name):
         return TagModel.query.filter_by(tag_name=tag_name).first()
