@@ -11,3 +11,10 @@ class Post:
     @staticmethod
     def query(page_num, page_size, *args, **kwargs):
         return PostModel.query.paginate(page_num, page_size, error_out=False)
+    @staticmethod 
+    def queryById(id):
+        return PostModel.query.filter_by(id=id).first()
+    @staticmethod
+    def deleteById(id):
+        PostModel.query.filter_by(id=id).delete()
+        db.session.flush()
