@@ -41,7 +41,10 @@ def query_category(category_id):
     }
 
 def queryTags(tag_ids):
-    return [ { k: v for k, v in Tag.queryByTagId(tag_id).__dict__ if k == 'id' or k == 'tag_name' } for tag_id in tag_ids]
+    return [
+        { k: v for k, v in Tag.queryByTagId(tag_id).to_dict().items() } 
+        for tag_id in tag_ids
+    ]
 
 def queryPostTags(post_id):
     return queryTags([post_tag.tag_id for post_tag in PostTag.queryByPostId(post_id)])
@@ -53,7 +56,7 @@ def query_posts(posts):
             'title': post.title,
             'content': post.content,
             'category': query_category(post.category_id),
-            # 'tags': queryPostTags(post.id),
+            'tags': queryPostTags(post.id),
             'created_date': post.created_date,
             'updated_date': post.updated_date,
         } 
