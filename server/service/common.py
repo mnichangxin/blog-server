@@ -63,6 +63,10 @@ def query_posts(posts):
         for post in posts
     ]
 
+'''
+    Delete
+'''
+
 @commit
 @is_json
 def post_publish(params):
@@ -78,17 +82,17 @@ def post_publish(params):
     tag_ids = None
 
     if title is None:
-        raise APIException('标题不能为空', 400)
+        raise APIException('title 不能为空', 400)
     if category_name is not None:
         category_id = insert_category(category_name)
     if (tag_names is not None):
         if (isinstance(tag_names, list) is not True):
-            raise APIException('标签格式不合法', 400)
+            raise APIException('tag_names 格式不合法', 400)
         tag_ids = insert_tags(tag_names)
     try: 
         datetime.strptime(created_date.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
     except (AttributeError, ValueError):
-        raise APIException('创建时间不合法', 400)
+        raise APIException('created_date 格式不合法', 400)
     post_id = Post.insert(
         title=title, 
         content=content, 
@@ -103,18 +107,11 @@ def post_publish(params):
 
 @commit
 @is_json
-def post_update(params):
-    title = params.get('title')
-    content = params.get('content')
-    created_date = params.get('created_date')
-
-@commit
-@is_json
 def post_query(params):
     page_num = params.get('page_num') or 1
     page_size = params.get('page_size') or 10
     if isinstance(page_num, int) is not True or isinstance(page_size, int) is not True:
-        raise APIException('page_num 或 page_size 不合法')
+        raise APIException('page_num 或 page_size 格式不合法')
     posts = Post.query(page_num, page_size)
     posts_data = query_posts(posts.items)
     return {
@@ -126,3 +123,25 @@ def post_query(params):
             'data': posts_data
         }
     }
+
+@commit
+@is_json
+def post_delete(params):
+    post_id = params.get('post_id')
+    if post_id is None:
+        raise APIException('post_id 不能为空', 400)
+    if Post.queryById(post_id) is None:
+        return {
+            'msg': 'post_id 不存在'
+        }
+    Post.deleteById(post_id)
+    return {
+        'msg': '删除成功'
+    }
+
+@commit
+@is_json
+def post_update(params):
+    title = params.get('title')
+    content = params.get('content')
+    created_date = params.get('created_date')
