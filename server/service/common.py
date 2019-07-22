@@ -63,10 +63,6 @@ def query_posts(posts):
         for post in posts
     ]
 
-'''
-    Delete
-'''
-
 @commit
 @is_json
 def post_publish(params):
@@ -135,6 +131,7 @@ def post_delete(params):
             'msg': 'post_id 不存在'
         }
     Post.deleteById(post_id)
+    PostTag.deleteByPostId(post_id)
     return {
         'msg': '删除成功'
     }
