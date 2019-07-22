@@ -15,3 +15,4 @@ class Tag:
     def queryByTagName(tag_name):
         return TagModel.query.filter_by(tag_name=tag_name).first()
 
+

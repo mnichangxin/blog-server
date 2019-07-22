@@ -15,3 +15,7 @@ class PostTag:
     @staticmethod
     def queryByPostIdAndTagId(post_id, tag_id):
         return PostTagModel.query.filter_by(post_id=post_id, tag_id=tag_id).first()
+    @staticmethod
+    def deleteByPostId(post_id):
+        PostTag.query.filter_by(post_id=post_id).delete()        
+        db.session.flush()
