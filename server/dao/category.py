@@ -16,5 +16,5 @@ class Category:
         return CategoryModel.query.filter_by(category_name=category_name).first()
     @staticmethod
     def deleteById(id):
-        Category.query.filter_by(id=id).delete()
+        CategoryModel.query.filter_by(id=id).delete()
         db.session.flush()

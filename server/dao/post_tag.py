@@ -1,7 +1,6 @@
 from ..model.common import db
 from ..model.tb_post_tag import PostTagModel
 
-
 class PostTag:
     @staticmethod
     def insert(**kwargs):
@@ -17,5 +16,5 @@ class PostTag:
         return PostTagModel.query.filter_by(post_id=post_id, tag_id=tag_id).first()
     @staticmethod
     def deleteByPostId(post_id):
-        PostTag.query.filter_by(post_id=post_id).delete()        
+        PostTagModel.query.filter_by(post_id=post_id).delete()        
         db.session.flush()
