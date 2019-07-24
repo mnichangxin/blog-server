@@ -15,6 +15,9 @@ class Post:
     def queryById(id):
         return PostModel.query.filter_by(id=id).first()
     @staticmethod
+    def queryByCategoryId(category_id):
+        return PostModel.query.filter_by(category_id=category_id).all()
+    @staticmethod
     def deleteById(id):
         PostModel.query.filter_by(id=id).delete()
         db.session.flush()

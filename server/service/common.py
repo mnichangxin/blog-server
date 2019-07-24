@@ -126,12 +126,15 @@ def post_delete(params):
     post_id = params.get('post_id')
     if post_id is None:
         raise APIException('post_id 不能为空', 400)
-    if Post.queryById(post_id) is None:
+    post_query= Post.queryById(post_id)
+    if post_query is None:
         return {
             'msg': 'post_id 不存在'
         }
     Post.deleteById(post_id)
     PostTag.deleteByPostId(post_id)
+    if len(Post.queryByCategoryId(post_query.category_id)) < 1:
+        Category.deleteById(post_query.category_id)
     return {
         'msg': '删除成功'
     }
