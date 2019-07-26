@@ -144,4 +144,7 @@ def post_delete(params):
 def post_update(params):
     title = params.get('title')
     content = params.get('content')
-    created_date = params.get('created_date')
+    updated_date = params.get('updated_date')
+    return {
+        'msg': '更新成功'
+    }
