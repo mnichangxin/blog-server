@@ -18,3 +18,9 @@ def api_post_query():
 @resp_wrapper
 def api_post_delete():
     return post_delete(request.get_json())
+
+
+@internal.route('/post_update', methods=['POST'])
+@resp_wrapper
+def api_post_update():
+    return {}
