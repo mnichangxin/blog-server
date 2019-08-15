@@ -145,6 +145,7 @@ def post_update(params):
     title = params.get('title')
     content = params.get('content')
     updated_date = params.get('updated_date')
+    title is not None 
     return {
         'msg': '更新成功'
     }
