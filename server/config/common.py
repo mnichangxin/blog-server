@@ -1,5 +1,6 @@
 '''
-    Notice: The database config is confidential information, so not open source code. You can create owner db config If you need. 
+    Notice: The database config is confidential information, so not open source code. 
+    You can create owner db config If you need. 
 '''
 from .db_secure import config as db_config
 
