@@ -144,8 +144,8 @@ def post_delete(params):
 def post_update(params):
     title = params.get('title')
     content = params.get('content')
+    category = params.get('category')
     updated_date = params.get('updated_date')
-    title is not None 
     return {
         'msg': '更新成功'
     }
