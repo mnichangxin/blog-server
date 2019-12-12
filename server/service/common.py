@@ -34,11 +34,13 @@ def insert_post_tag(post_id, tag_ids):
     Query
 '''
 def query_category(category_id):
-    category_query = Category.queryById(category_id)
-    return {
-        'id': category_query.id,
-        'name': category_query.category_name 
-    }
+    if category_id is not None:
+        category_query = Category.queryById(category_id)
+        return {
+            'id': category_query.id,
+            'name': category_query.category_name 
+        }
+    return None
 
 def queryTags(tag_ids):
     return [
@@ -69,13 +71,13 @@ def post_publish(params):
     title = params.get('title')
     content = params.get('content') or ''
     category_name = params.get('category_name')
-    tag_names = params.get('tag_names') or None
+    tag_names = params.get('tag_names')
     created_date = params.get('created_date') or datetime.now()
     updated_date = None
 
     post_id = None
     category_id = None
-    tag_ids = None
+    tag_ids = []
 
     if title is None:
         raise APIException('title 不能为空', 400)
