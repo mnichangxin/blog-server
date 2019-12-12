@@ -144,6 +144,9 @@ def post_delete(params):
 @commit
 @is_json
 def post_update(params):
+    post_id = params.get('post_id')
+    if post_id is None:
+        raise APIException('post_id 不能为空', 400)
     title = params.get('title')
     content = params.get('content')
     category = params.get('category')
