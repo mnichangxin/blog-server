@@ -13,10 +13,16 @@ class Post:
         return PostModel.query.paginate(page_num, page_size, error_out=False)
     @staticmethod 
     def queryById(id):
-        return PostModel.query.filter_by(id=id).first()
+        return PostModel.query.filter_by(id=id)
     @staticmethod
     def queryByCategoryId(category_id):
         return PostModel.query.filter_by(category_id=category_id).all()
+    @staticmethod
+    def updateById(id, **kwargs):
+        post = PostModel.query.filter_by(id=id).first()
+        for k, v in kwargs.items():
+            post.k = v
+        db.session.flush()
     @staticmethod
     def deleteById(id):
         PostModel.query.filter_by(id=id).delete()

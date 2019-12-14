@@ -146,11 +146,8 @@ def post_delete(params):
 def post_update(params):
     post_id = params.get('post_id')
     if post_id is None:
-        raise APIException('post_id 不能为空', 400)
-    title = params.get('title')
-    content = params.get('content')
-    category = params.get('category')
-    updated_date = params.get('updated_date')
+        raise APIException('post_id 不能为空', 400)    
+    Post.updateById(post_id, **params)
     return {
         'msg': '更新成功'
     }
