@@ -21,7 +21,7 @@ class Post:
     def updateById(id, **kwargs):
         post = PostModel.query.filter_by(id=id).first()
         for k, v in kwargs.items():
-            post.k = v
+            setattr(post, k, v)
         db.session.flush()
     @staticmethod
     def deleteById(id):
