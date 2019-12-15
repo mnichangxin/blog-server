@@ -23,6 +23,7 @@ class Post:
         for k, v in kwargs.items():
             setattr(post, k, v)
         db.session.flush()
+        return post
     @staticmethod
     def deleteById(id):
         PostModel.query.filter_by(id=id).delete()

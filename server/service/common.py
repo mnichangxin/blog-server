@@ -42,14 +42,14 @@ def query_category(category_id):
         }
     return None
 
-def queryTags(tag_ids):
+def query_tags(tag_ids):
     return [
         { k: v for k, v in Tag.queryByTagId(tag_id).to_dict().items() } 
         for tag_id in tag_ids
     ]
 
-def queryPostTags(post_id):
-    return queryTags([post_tag.tag_id for post_tag in PostTag.queryByPostId(post_id)])
+def query_post_tags(post_id):
+    return query_tags([post_tag.tag_id for post_tag in PostTag.queryByPostId(post_id)])
 
 def query_posts(posts):
     return [
@@ -58,12 +58,43 @@ def query_posts(posts):
             'title': post.title,
             'content': post.content,
             'category': query_category(post.category_id),
-            'tags': queryPostTags(post.id),
+            'tags': query_post_tags(post.id),
             'created_date': post.created_date,
             'updated_date': post.updated_date,
         } 
         for post in posts
     ]
+
+'''
+    Update
+'''
+def update_category(category_name):
+    category_id = None
+    category_query = Category.queryByCategoryName(category_name)
+    if category_query is not None:
+        category_id = Category.updateByCategoryId(category_query.id).id
+    else:
+        category_id = Category.insert(category_name=category_name).id
+    return category_id
+
+def update_post_tags(post_id, tag_names):
+    old_post_tags = PostTag.queryByPostId(post_id)
+    old_tag_ids = [ post_tag.tag_id for post_tag in old_post_tags ]
+    new_tag_ids = [ 
+        Tag.queryByTagName(tag_name).id 
+        for tag_name in tag_names if Tag.queryByTagName(tag_name) is not None else insert_tag(tag_name).id
+    ]
+    [ 
+        PostTag.deleteByPostIdAndTagId(post_id, old_tag_id) 
+        for old_tag_id in old_tag_ids if old_tag_id not in new_tag_ids 
+    ]
+    [
+        PostTag.insert(post_id=post_id, tag_id=new_tag_id)
+        for new_tag_id in new_tag_ids if new_tag_id not in old_tag_ids
+    ]
+
+# def update_post(post_id, update_):
+#     Post.updateById(post_id, **{ k: v for k, v in params.items() if k in ['title', 'content'] })
 
 @commit
 @is_json
@@ -145,9 +176,13 @@ def post_delete(params):
 @is_json
 def post_update(params):
     post_id = params.get('post_id')
+    category_name = params.get('category_name')
+    tag_names = params.get('tag_names')
     if post_id is None:
-        raise APIException('post_id 不能为空', 400)    
-    Post.updateById(post_id, **params)
+        raise APIException('post_id 不能为空', 400)
+    if category_name is not None:    
+        update_category(category_name)
+    
     return {
         'msg': '更新成功'
     }
