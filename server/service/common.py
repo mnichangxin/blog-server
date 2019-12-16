@@ -19,7 +19,7 @@ def insert_category(category_name):
 
 def insert_tag(tag_name):
     tag_query = Tag.queryByTagName(tag_name)
-    return tag_query.id if tag_query is not None else Tag.insert(tag_name=tag_name).id
+    return tag_query if tag_query is not None else Tag.insert(tag_name=tag_name)
 
 def insert_tags(tag_names):
     return [insert_tag(str(tag_name)) for tag_name in tag_names]
@@ -72,7 +72,7 @@ def update_category(category_name):
     category_id = None
     category_query = Category.queryByCategoryName(category_name)
     if category_query is not None:
-        category_id = Category.updateByCategoryId(category_query.id).id
+        category_id = Category.updateByCategoryId(category_query.id, category_name=category_name).id
     else:
         category_id = Category.insert(category_name=category_name).id
     return category_id
@@ -82,19 +82,21 @@ def update_post_tags(post_id, tag_names):
     old_tag_ids = [ post_tag.tag_id for post_tag in old_post_tags ]
     new_tag_ids = [ 
         Tag.queryByTagName(tag_name).id 
-        for tag_name in tag_names if Tag.queryByTagName(tag_name) is not None else insert_tag(tag_name).id
+        if Tag.queryByTagName(tag_name) is not None else insert_tag(tag_name).id 
+        for tag_name in tag_names 
     ]
-    [ 
-        PostTag.deleteByPostIdAndTagId(post_id, old_tag_id) 
-        for old_tag_id in old_tag_ids if old_tag_id not in new_tag_ids 
-    ]
-    [
-        PostTag.insert(post_id=post_id, tag_id=new_tag_id)
-        for new_tag_id in new_tag_ids if new_tag_id not in old_tag_ids
-    ]
+    [ PostTag.deleteByPostIdAndTagId(post_id, old_tag_id) for old_tag_id in old_tag_ids if old_tag_id not in new_tag_ids ]
+    [ PostTag.insert(post_id=post_id, tag_id=new_tag_id) for new_tag_id in new_tag_ids if new_tag_id not in old_tag_ids ]
 
-# def update_post(post_id, update_):
-#     Post.updateById(post_id, **{ k: v for k, v in params.items() if k in ['title', 'content'] })
+def update_post(post_id, **update_items):
+    category_name = update_items.get('category_name')
+    tag_names = update_items.get('tag_names')
+    if category_name is not None:
+        update_items.update({ 'category_id': update_category(category_name) })
+    if tag_names is not None:
+        update_post_tags(post_id, tag_names)
+    update_items.update({ 'updated_date': datetime.now() })
+    Post.updateById(post_id, **update_items)
 
 @commit
 @is_json
@@ -103,7 +105,7 @@ def post_publish(params):
     content = params.get('content') or ''
     category_name = params.get('category_name')
     tag_names = params.get('tag_names')
-    created_date = params.get('created_date') or datetime.now()
+    created_date = datetime.now()
     updated_date = None
 
     post_id = None
@@ -117,11 +119,8 @@ def post_publish(params):
     if (tag_names is not None):
         if (isinstance(tag_names, list) is not True):
             raise APIException('tag_names 格式不合法', 400)
-        tag_ids = insert_tags(tag_names)
-    try: 
-        datetime.strptime(created_date.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
-    except (AttributeError, ValueError):
-        raise APIException('created_date 格式不合法', 400)
+        tags = insert_tags(tag_names)
+        tag_ids = [ tag.id for tag in tags ]
     post_id = Post.insert(
         title=title, 
         content=content, 
@@ -180,9 +179,8 @@ def post_update(params):
     tag_names = params.get('tag_names')
     if post_id is None:
         raise APIException('post_id 不能为空', 400)
-    if category_name is not None:    
-        update_category(category_name)
-    
+    update_items = { k: v for k, v in params.items() if k in ['title', 'content', 'category_name', 'tag_names'] }
+    update_post(post_id, **update_items) 
     return {
         'msg': '更新成功'
     }
