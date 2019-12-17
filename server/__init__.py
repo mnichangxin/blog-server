@@ -1,6 +1,7 @@
 from flask import Flask
-from .model.common import db
-from .config.common import config
+from server.model import db
+from server.config import config
+from server.api import api
 
 def create_app(config_name='default'):
     app = Flask(__name__)
@@ -9,14 +10,7 @@ def create_app(config_name='default'):
 
     db.init_app(app)
 
-    from .api.common import api as api_blueprint
-    app.register_blueprint(api_blueprint, url_prefix='/api/v1')
-
-    from .api.internal.common import internal as api_internal_blueprint
-    app.register_blueprint(api_internal_blueprint, url_prefix='/api/v1/internal')
-
-    from .api.view.common import view as api_view_blueprint
-    app.register_blueprint(api_view_blueprint, url_prefix='/api/v1/view')
+    app.register_blueprint(api, url_prefix='/api')
 
     app.app_context().push()
 
