@@ -4,7 +4,7 @@ from ..dao.category import Category
 from ..dao.tag import Tag
 from ..dao.post_tag import PostTag
 from ..utils.exception.exception import APIException, ServerException
-from ..utils.decorators.is_json import is_json
+from ..utils.decorators.json_required import json_required
 from ..utils.decorators.commit import commit
 
 '''
@@ -99,7 +99,7 @@ def update_post(post_id, **update_items):
     Post.updateById(post_id, **update_items)
 
 @commit
-@is_json
+@json_required
 def post_publish(params):
     title = params.get('title')
     content = params.get('content') or ''
@@ -134,7 +134,7 @@ def post_publish(params):
     }
 
 @commit
-@is_json
+@json_required
 def post_query(params):
     page_num = params.get('page_num') or 1
     page_size = params.get('page_size') or 10
@@ -153,7 +153,7 @@ def post_query(params):
     }
 
 @commit
-@is_json
+@json_required
 def post_delete(params):
     post_id = params.get('post_id')
     if post_id is None:
@@ -172,7 +172,7 @@ def post_delete(params):
     }
 
 @commit
-@is_json
+@json_required
 def post_update(params):
     post_id = params.get('post_id')
     category_name = params.get('category_name')

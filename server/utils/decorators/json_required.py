@@ -3,7 +3,7 @@ import json
 from functools import wraps
 from ..exception.exception import APIException, ServerException
 
-def is_json(func):
+def json_required(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         json_object = None
