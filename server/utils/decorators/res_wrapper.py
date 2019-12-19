@@ -2,7 +2,7 @@ import logging
 
 from functools import wraps
 from flask import make_response, jsonify
-from ..exception.exception import APIException, ServerException
+from server.utils.exception.exception import APIException, ServerException
 
 
 def resp_success(**kwargs):

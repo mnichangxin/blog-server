@@ -1,7 +1,7 @@
 import json
 
 from functools import wraps
-from ..exception.exception import APIException, ServerException
+from server.utils.exception.exception import APIException, ServerException
 
 def json_required(func):
     @wraps(func)

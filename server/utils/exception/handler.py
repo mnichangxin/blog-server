@@ -1,6 +1,6 @@
 from flask import current_app
 from werkzeug.exceptions import HTTPException
-from .exception import APIException, ServerException
+from server.utils.exception.exception import APIException, ServerException
 
 @current_app.errorhandler(Exception)
 def handle_error(e):

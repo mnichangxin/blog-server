@@ -1,5 +1,5 @@
-from ..model.common import db
-from ..model.tb_post_tag import PostTagModel
+from server.model import db
+from server.model.tb_post_tag import PostTagModel
 
 class PostTag:
     @staticmethod

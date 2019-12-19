@@ -1,6 +1,5 @@
 from functools import wraps
-from ...model.common import db
-
+from server.model import db
 
 def commit(func):
     @wraps(func)

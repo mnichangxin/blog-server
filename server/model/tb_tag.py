@@ -1,5 +1,5 @@
 from sqlalchemy import Integer, String, Column
-from .common import db
+from . import db
 
 class TagModel(db.Model):
     __tablename__ = 'tag'

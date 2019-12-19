@@ -1,5 +1,5 @@
-from ..model.common import db
-from ..model.tb_post import PostModel
+from server.model import db
+from server.model.tb_post import PostModel
 
 class Post:
     @staticmethod
