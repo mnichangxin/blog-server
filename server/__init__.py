@@ -1,7 +1,7 @@
 from flask import Flask
+from werkzeug.utils import import_string
 from server.model import db
 from server.config import config
-from server.api import api
 
 def create_app(config_name='default'):
     app = Flask(__name__)
@@ -10,11 +10,16 @@ def create_app(config_name='default'):
 
     db.init_app(app)
 
-    app.register_blueprint(api, url_prefix='/api')
+    blueprints = [
+        'server.api.v1.internal.post:bp'
+    ]
+
+    for bp_name in blueprints:
+        bp = import_string(bp_name)
+        app.register_blueprint(bp, url_prefix='/api' + bp.url_prefix)   
 
     app.app_context().push()
 
     from .utils.common import commands
 
     return app
-

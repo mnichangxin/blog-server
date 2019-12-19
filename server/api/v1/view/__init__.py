@@ -1,3 +1,3 @@
-from server.utils.common.redprint import Redprint
+# from server.utils.common.redprint import Redprint
 
-view = Redprint('view')
+# view = Redprint('view')
