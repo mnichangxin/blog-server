@@ -8,7 +8,9 @@ def fileUpload(files):
     if filesCount == 0:
         raise APIException('文件不能为空')
     for i in files:
-        print(dir(files[i]))
+        file = files[i]
+        if file.content_type != 'text/markdown':
+            raise APIException('文件格式不正确')
     return {
         'msg': '上传成功'
     }
