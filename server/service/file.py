@@ -7,6 +7,8 @@ def fileUpload(files):
     filesCount = len(files)
     if filesCount == 0:
         raise APIException('文件不能为空')
+    for i in files:
+        print(dir(files[i]))
     return {
         'msg': '上传成功'
     }
