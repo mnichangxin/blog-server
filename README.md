@@ -26,24 +26,18 @@ Blog server, powered by python.
 |   ├── server/
 |       ├── __init__.py
 |       ├── config/
-|       |   └── __init__.py
 |       ├── libs/
-|       │   ├── __init__.py
 |       │   ├── commands.py
 |       │   ├── error.py
 |       |   └── error_handler.py
 |       ├── api/
-|       │   ├── __init__.py
 |       │   ├── view/
 |       |   └── internal/
 |       ├── service/
-|       |   └── __init__.py
+|       |   └── post.py
 |       ├── dao/
-|       |   └── __init__.py
 |       ├── model/
-|       |   └── __init__.py
 |       └── utils/
-|           └── __init__.py
 ├── tools/
 ├── venv/
 ├── .flaskenv
