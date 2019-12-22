@@ -6,7 +6,7 @@ from server.dao.user import User
 
 @commit
 @json_required
-def register(params):
+def userRegister(params):
     username = params.get('username')
     password = params.get('password')
 
