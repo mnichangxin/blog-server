@@ -11,7 +11,8 @@ def create_app(config_name='default'):
     db.init_app(app)
 
     blueprints = [
-        'server.api.v1.internal.post:bp'
+        'server.api.v1.internal.post:bp',
+        'server.api.v1.internal.user:bp'
     ]
 
     for bp_name in blueprints:
