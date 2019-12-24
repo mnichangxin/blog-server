@@ -30,7 +30,9 @@ def resp_wrapper(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         try:
-            return resp_success(**func(*args, **kwargs))
+            execute_func = func(*args, **kwargs)
+            # print(type(execute_func))
+            return resp_success(**execute_func)
         except APIException as apiExc:
             return resp_api_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
         except ServerException as serverExc:

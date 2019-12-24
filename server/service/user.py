@@ -35,6 +35,9 @@ def userRegister(params):
         'msg': '注册成功'
     }
 
+def test():
+    pass
+
 @commit
 @json_required
 def userLogin(params, cookies):
@@ -56,7 +59,7 @@ def userLogin(params, cookies):
     if user_session_id is None or user_session_id is not None and Session.queryBySessionId(user_session_id) is None:
         if generateAndInsertSessionId() is None:
             raise APIException('用户登录异常', 401)
-    
-    return {
-        'msg': '登录成功'
-    }
+    return test
+    # return {
+    #     'msg': '登录成功'
+    # }
