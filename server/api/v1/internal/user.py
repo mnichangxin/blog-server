@@ -12,4 +12,4 @@ def user_register():
 @bp.route('login', methods=['POST'])
 @resp_wrapper
 def user_login():
-    return userLogin(request.get_json())
+    return userLogin(request.get_json(), request.cookies)
