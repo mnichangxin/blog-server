@@ -4,13 +4,19 @@ from functools import wraps
 from flask import make_response, jsonify
 from server.utils.exception.exception import APIException, ServerException
 
+def set_cookies(response, cookies):
+    for i in cookies:
+        response.set_cookie(i, cookies[i])
 
 def resp_success(**kwargs):
-    return make_response(jsonify({
+    response = make_response(jsonify({
         'status': 0,
         'msg': kwargs.get('msg') or '成功',
         'data': kwargs.get('data') or None
     }), kwargs.get('code') or 200)
+    if kwargs.get('cookies'):
+        set_cookies(response, kwargs.get('cookies'))
+    return response
 
 def resp_api_error(**kwargs):
     return make_response(jsonify({
@@ -30,9 +36,7 @@ def resp_wrapper(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         try:
-            execute_func = func(*args, **kwargs)
-            # print(type(execute_func))
-            return resp_success(**execute_func)
+            return resp_success(**func(*args, **kwargs))
         except APIException as apiExc:
             return resp_api_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
         except ServerException as serverExc:
