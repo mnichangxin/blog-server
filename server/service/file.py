@@ -1,6 +1,5 @@
 from markdown import markdown
 from server.utils.exception.exception import APIException
-from server.utils.decorators.json_required import json_required
 from server.utils.decorators.commit import commit
 
 @commit

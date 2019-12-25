@@ -4,35 +4,26 @@ from server.dao.category import Category
 from server.dao.tag import Tag
 from server.dao.post_tag import PostTag
 from server.utils.exception.exception import APIException, ServerException
-from server.utils.decorators.json_required import json_required
 from server.utils.decorators.commit import commit
 
-'''
-    Insert
-'''
+
 def insertCategory(category_name):
     category_query = Category.queryByCategoryName(category_name)
     return (
         category_query.id 
         if category_query is not None else Category.insert(category_name=category_name).id
     )
-
 def insertTag(tag_name):
     tag_query = Tag.queryByTagName(tag_name)
     return tag_query if tag_query is not None else Tag.insert(tag_name=tag_name)
-
 def insertTags(tag_names):
     return [insertTag(str(tag_name)) for tag_name in tag_names]
-
 def insertPostTag(post_id, tag_ids):
     return [
         PostTag.insert(post_id=post_id, tag_id=tag_id)
         for tag_id in tag_ids if PostTag.queryByPostIdAndTagId(post_id, tag_id) is None
     ]
 
-'''
-    Query
-'''
 def queryCategory(category_id):
     if category_id is not None:
         category_query = Category.queryById(category_id)
@@ -41,16 +32,13 @@ def queryCategory(category_id):
             'name': category_query.category_name 
         }
     return None
-
 def queryTags(tag_ids):
     return [
         { k: v for k, v in Tag.queryByTagId(tag_id).to_dict().items() } 
         for tag_id in tag_ids
     ]
-
 def queryPostTags(post_id):
     return queryTags([post_tag.tag_id for post_tag in PostTag.queryByPostId(post_id)])
-
 def queryPosts(posts):
     return [
         {
@@ -65,9 +53,6 @@ def queryPosts(posts):
         for post in posts
     ]
 
-'''
-    Update
-'''
 def updateCategory(category_name):
     category_id = None
     category_query = Category.queryByCategoryName(category_name)
@@ -76,7 +61,6 @@ def updateCategory(category_name):
     else:
         category_id = Category.insert(category_name=category_name).id
     return category_id
-
 def updatePostTags(post_id, tag_names):
     old_post_tags = PostTag.queryByPostId(post_id)
     old_tag_ids = [ post_tag.tag_id for post_tag in old_post_tags ]
@@ -87,7 +71,6 @@ def updatePostTags(post_id, tag_names):
     ]
     [ PostTag.deleteByPostIdAndTagId(post_id, old_tag_id) for old_tag_id in old_tag_ids if old_tag_id not in new_tag_ids ]
     [ PostTag.insert(post_id=post_id, tag_id=new_tag_id) for new_tag_id in new_tag_ids if new_tag_id not in old_tag_ids ]
-
 def updatePost(post_id, **update_items):
     category_name = update_items.get('category_name')
     tag_names = update_items.get('tag_names')
@@ -99,7 +82,6 @@ def updatePost(post_id, **update_items):
     Post.updateById(post_id, **update_items)
 
 @commit
-@json_required
 def postPublish(params):
     title = params.get('title')
     content = params.get('content') or ''
@@ -134,7 +116,6 @@ def postPublish(params):
     }
 
 @commit
-@json_required
 def postQuery(params):
     page_num = params.get('page_num') or 1
     page_size = params.get('page_size') or 10
@@ -153,7 +134,6 @@ def postQuery(params):
     }
 
 @commit
-@json_required
 def postDelete(params):
     post_id = params.get('post_id')
     if post_id is None:
@@ -172,7 +152,6 @@ def postDelete(params):
     }
 
 @commit
-@json_required
 def postUpdate(params):
     post_id = params.get('post_id')
     category_name = params.get('category_name')

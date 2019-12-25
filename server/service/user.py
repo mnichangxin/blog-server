@@ -3,7 +3,6 @@ import os, binascii
 from flask import make_response, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from server.utils.exception.exception import APIException
-from server.utils.decorators.json_required import json_required
 from server.utils.decorators.commit import commit
 from server.dao.user import User
 from server.dao.session import Session
@@ -16,7 +15,6 @@ def setCookies(response, res_cookies):
         response.set_cookie(i, res_cookies[i])
 
 @commit
-@json_required
 def userRegister(params):
     username = params.get('username')
     password = params.get('password')
@@ -34,7 +32,6 @@ def userRegister(params):
     }
 
 @commit
-@json_required
 def userLogin(params, cookies):
     username = params.get('username')
     password = params.get('password')
@@ -76,4 +73,3 @@ def userLogout(cookies):
     res.delete_cookie('USER_SESSION')
 
     return res
-    
