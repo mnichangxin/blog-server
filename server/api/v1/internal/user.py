@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from server.utils.decorators.res_wrapper import resp_wrapper
-from server.service.user import userRegister, userLogin
+from server.service.user import userRegister, userLogin, userLogout
 
 bp = Blueprint('user', __name__, url_prefix='/v1/internal/user')
 
@@ -13,3 +13,8 @@ def user_register():
 @resp_wrapper
 def user_login():
     return userLogin(request.get_json(), request.cookies)
+
+@bp.route('logout', methods=['GET', 'POST'])
+@resp_wrapper
+def user_logout():
+    return userLogout(request.cookies) 

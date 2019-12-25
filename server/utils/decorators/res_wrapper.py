@@ -34,7 +34,7 @@ def resp_wrapper(func):
             if isinstance(response_func, Response):
                 return response_func
             else:
-                return resp_success(**func_response)
+                return resp_success(**response_func)
         except APIException as apiExc:
             return resp_api_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
         except ServerException as serverExc:

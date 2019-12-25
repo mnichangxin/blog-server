@@ -11,3 +11,7 @@ class Session:
     @staticmethod
     def queryBySessionId(session_id):
         return SessionModel.query.filter_by(session_id=session_id).first()
+    @staticmethod
+    def deleteBySessionId(session_id):
+        SessionModel.query.filter_by(session_id=session_id).delete()
+        db.session.flush()
