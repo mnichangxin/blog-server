@@ -11,11 +11,9 @@ from server.dao.session import Session
 def generateSessionId():
     return binascii.b2a_base64(os.urandom(24))[:-1] 
 
-def insertSessionId(session_id):
-    return Session.insert(session_id=session_id)
-
-def generateAndInsertSessionId():
-    return insertSessionId(generateSessionId())
+def setCookies(response, res_cookies):
+    for i in res_cookies:
+        response.set_cookie(i, res_cookies[i])
 
 @commit
 @json_required
@@ -54,14 +52,18 @@ def userLogin(params, cookies):
     user_session_id = cookies.get('USER_SESSION')
 
     if user_session_id is None or user_session_id is not None and Session.queryBySessionId(user_session_id) is None:
-        if generateAndInsertSessionId() is None:
-            raise APIException('用户登录异常', 401)
+        user_session_id = generateSessionId()
+        if Session.insert(session_id=user_session_id) is None:
+            raise APIException('用户登录异常', 401)            
 
-    new_cookies = {
-        'USER_SESSION': '123'
-    }
-
-    return {
+    res = make_response(jsonify({
+        'status': 0,
         'msg': '登录成功',
-        'cookies': new_cookies
-    }
+        'data': None
+    }), 200)
+
+    res_cookies = cookies.__dict__
+    res_cookies['USER_SESSION'] = user_session_id
+    setCookies(res, res_cookies)
+
+    return res
