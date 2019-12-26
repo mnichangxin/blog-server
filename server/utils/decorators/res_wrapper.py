@@ -5,25 +5,8 @@ from flask import make_response, jsonify, Response
 from server.utils.exception.exception import APIException, ServerException
 
 def combine_response(**kwargs):
-    res_default = {
-        'status': 0,
-        'msg': '成功',
-        'data': None
-    }
+    res_default = { 'status': 0, 'msg': '成功', 'data': None }
     return jsonify({ **res_default, **kwargs })
-
-def resp_success(**kwargs):
-    return make_response(combine_response(**kwargs), kwargs.get('code') or 200)
-
-def resp_api_error(**kwargs):
-    return make_response(combine_response(**kwargs), kwargs.get('code') or 400)
-
-def resp_server_error(**kwargs):
-    return make_response(jsonify({
-        'status': -1,
-        'msg': kwargs.get('msg') or '服务端错误',
-        'data': None
-    }), kwargs.get('code') or 500)
 
 def resp_wrapper(func):
     @wraps(func)
