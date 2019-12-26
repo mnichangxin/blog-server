@@ -14,6 +14,13 @@ def setCookies(response, res_cookies):
     for i in res_cookies:
         response.set_cookie(i, res_cookies[i])
 
+def checkLoginStatus(cookies):
+    login_status = False
+    user_session_id = cookies.get('USER_SESSION')
+    if user_session_id is not None and Session.queryBySessionId(user_session_id) is not None:
+        login_status = True
+    return login_status
+
 @commit
 def userRegister(params):
     username = params.get('username')
@@ -72,4 +79,12 @@ def userLogout(cookies):
     res = make_response(jsonify({ 'status': 0, 'msg': '登出成功', 'data': None }), 200)
     res.delete_cookie('USER_SESSION')
 
+    return res
+
+@commit
+def checkLogin(cookies):
+    res = { 'msg': '用户未登录', 'loginStatus': False }
+    if checkLoginStatus(cookies):
+        res['msg'] = '用户已登录'
+        res['loginStatus'] = True
     return res

@@ -4,20 +4,19 @@ from functools import wraps
 from flask import make_response, jsonify, Response
 from server.utils.exception.exception import APIException, ServerException
 
+def combine_response(**kwargs):
+    res_default = {
+        'status': 0,
+        'msg': '成功',
+        'data': None
+    }
+    return jsonify({ **res_default, **kwargs })
 
 def resp_success(**kwargs):
-    return make_response(jsonify({
-        'status': 0,
-        'msg': kwargs.get('msg') or '成功',
-        'data': kwargs.get('data') or None
-    }), kwargs.get('code') or 200)
+    return make_response(combine_response(**kwargs), kwargs.get('code') or 200)
 
 def resp_api_error(**kwargs):
-    return make_response(jsonify({
-        'status': -1,
-        'msg': kwargs.get('msg') or '请求无效',
-        'data': None
-    }), kwargs.get('code') or 400)
+    return make_response(combine_response(**kwargs), kwargs.get('code') or 400)
 
 def resp_server_error(**kwargs):
     return make_response(jsonify({
@@ -34,12 +33,12 @@ def resp_wrapper(func):
             if isinstance(response_func, Response):
                 return response_func
             else:
-                return resp_success(**response_func)
+                return make_response(combine_response(**response_func), kwargs.get('code') or 200)
         except APIException as apiExc:
-            return resp_api_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
+            return make_response(combine_response(**{ 'status': -1, 'msg': apiExc.msg }), apiExc.code or 400)
         except ServerException as serverExc:
-            return resp_server_error(**{ 'msg': apiExc.msg, 'code': apiExc.code })
+            return make_response(combine_response(**{ 'status': -1, 'msg': apiExc.msg }), apiExc,code or 500)
         except Exception as unkownExc:
             logging.error(unkownExc)
-            return resp_server_error(**{ 'msg': '服务端错误', 'code': 500 })
+            return make_response(combine_response(**{ 'status': -1, 'msg': '服务端错误' }), apiExc.code or 500)
     return decorator
