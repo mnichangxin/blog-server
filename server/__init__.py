@@ -1,19 +1,15 @@
 from flask import Flask
 from werkzeug.utils import import_string
 from server.model import db
-from server.config import config
+from server.config.common import base_config
+from server.config.blueprints import blueprints
 
 def create_app(config_name='default'):
     app = Flask(__name__)
-    app.config.from_object(config[config_name])
-    config[config_name].init_app(app)
+    app.config.from_object(base_config[config_name])
+    base_config[config_name].init_app(app)
 
     db.init_app(app)
-
-    blueprints = [
-        'server.api.v1.internal.post:bp',
-        'server.api.v1.internal.user:bp'
-    ]
 
     for bp_name in blueprints:
         bp = import_string(bp_name)
