@@ -13,3 +13,15 @@ bp = Blueprint('posts', __name__, url_prefix='/v1/view/post')
 @json_required
 def post_query():
     return postQuery(request.get_json())
+
+@bp.route('/queryByCategory', methods=['GET'])
+@resp_wrapper
+@json_required
+def post_query_by_category():
+    return postQuery(request.get_json())
+
+@bp.route('/queryByTag', methods=['GET'])
+@resp_wrapper
+@json_required
+def post_query_by_tag():
+    return postQuery(request.get_json())
