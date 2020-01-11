@@ -20,3 +20,5 @@ def create_app(config_name='default'):
     from .utils.common import commands
 
     return app
+
+app = create_app()
