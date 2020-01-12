@@ -12,6 +12,9 @@ class PostTag:
     def queryByPostId(post_id):
         return PostTagModel.query.filter_by(post_id=post_id).all()
     @staticmethod
+    def queryByTagId(tag_id):
+        return PostTagModel.query.filter_by(tag_id=tag_id).all()
+    @staticmethod
     def queryByPostIdAndTagId(post_id, tag_id):
         return PostTagModel.query.filter_by(post_id=post_id, tag_id=tag_id).first()
     @staticmethod

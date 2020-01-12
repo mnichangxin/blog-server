@@ -3,7 +3,7 @@ from server.dao.post import Post
 from server.dao.category import Category
 from server.dao.tag import Tag
 from server.dao.post_tag import PostTag
-from server.service.common import insertCategory, insertTags, queryPosts, updatePost
+from server.service.common import insertCategory, insertTags, insertPostTag, queryPosts, updatePost
 from server.utils.exception.exception import APIException, ServerException
 from server.utils.decorators.commit import commit
 
@@ -53,7 +53,53 @@ def postQuery(params):
     return {
         'msg': '查询成功',
         'data': {
-            'page_index': posts.page,
+            'page_num': posts.page,
+            'page_count': posts.pages,
+            'total': posts.total,
+            'data': posts_data
+        }
+    }
+
+@commit
+def postQueryByCategory(params):
+    category_id = params.get('category_id')
+    page_num = params.get('page_num') or 1
+    page_size = params.get('page_size') or 10
+    if category_id is None:
+        raise APIException('category_id 不能为空')
+    if isinstance(page_num, int) is not True or isinstance(page_size, int) is not True:
+        raise APIException('page_num 或 page_size 格式不合法')
+    posts = Post.query(page_num, page_size, category_id=category_id)
+    posts_data = queryPosts(posts.items)
+    return {
+        'msg': '查询成功',
+        'data': {
+            'page_num': posts.page,
+            'page_count': posts.pages,
+            'total': posts.total,
+            'data': posts_data
+        }
+    }
+
+@commit
+def postQueryByTag(params):
+    tag_id = params.get('tag_id')
+    page_num = params.get('page_num') or 1
+    page_size = params.get('page_size') or 10
+    if tag_id is None:
+        raise APIException('tag_id 不能为空')
+    if isinstance(page_num, int) is not True or isinstance(page_size, int) is not True:
+        raise APIException('page_num 或 page_size 格式不合法')
+    post_tags = PostTag.queryByTagId(tag_id)
+    post_ids = []
+    if post_tags is not None:
+        post_ids = [ post_tag.post_id for post_tag in post_tags ]
+    posts = Post.queryByPostIds(page_num, page_size, post_ids)
+    posts_data = queryPosts(posts.items)
+    return {
+        'msg': '查询成功',
+        'data': {
+            'page_num': posts.page,
             'page_count': posts.pages,
             'total': posts.total,
             'data': posts_data
