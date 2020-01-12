@@ -12,8 +12,16 @@ Blog server, powered by python.
 
 ## :hammer: Usage
 
+* Dev:
+
 ```sh
     tools/start_dev.sh
+```
+
+* Prod:
+
+```sh
+    tools/start_prod.sh
 ```
 
 ## :memo: Introduction
