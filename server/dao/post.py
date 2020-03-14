@@ -13,7 +13,7 @@ class Post:
         return PostModel.query.filter_by(**kwargs).paginate(page_num, page_size, error_out=False)
     @staticmethod 
     def queryById(id):
-        return PostModel.query.filter_by(id=id)
+        return PostModel.query.filter_by(id=id).first()
     @staticmethod
     def queryByCategoryId(category_id):
         return PostModel.query.filter_by(category_id=category_id).all()

@@ -76,8 +76,7 @@ def postQueryByCategory(params):
         'data': {
             'page_num': posts.page,
             'page_count': posts.pages,
-            'total': posts.total,
-            'data': posts_data
+            'total': posts.total
         }
     }
 
@@ -104,6 +103,19 @@ def postQueryByTag(params):
             'total': posts.total,
             'data': posts_data
         }
+    }
+
+@commit
+def postQueryDetail(params):
+    post_id = params.get('post_id')
+    if post_id is None:
+        raise APIException('post_id 不能为空')
+    post_query = Post.queryById(post_id)
+    if post_query is None:
+        raise APIException('post_id 不存在', 400)
+    return {
+        'msg': '查询成功',
+        'data': { k: v for k, v in post_query.to_dict().items() }
     }
 
 @commit
