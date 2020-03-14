@@ -57,4 +57,9 @@ Blog server, powered by python.
 
 The file `.flaskenv` mark as `Flask` environmental variable.
 
-## ::pencil: Doc
+## :pencil: Doc
+
+The following API:
+
+* [End-B](https://github.com/mnichangxin/blog-server/blob/dev-flask/doc/api-b.md)
+* [End-C](https://github.com/mnichangxin/blog-server/blob/dev-flask/doc/api-c.md)
