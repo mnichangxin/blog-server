@@ -56,3 +56,5 @@ Blog server, powered by python.
 ## :wrench: Configuration
 
 The file `.flaskenv` mark as `Flask` environmental variable.
+
+## ::pencil: Doc
