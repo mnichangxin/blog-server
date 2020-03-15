@@ -121,3 +121,37 @@
         }
     }
 ```
+
+4. 文章详细内容查询：/api/v1/internal/view/post/queryDetail
+
+* 入参：
+
+```json
+    {
+        "post_id": "", // 文章 id
+    }
+```
+
+* 返回：
+
+```json
+    {
+        "status": 0,
+        "msg": "查询成功",
+        "data": {
+            "id": 4,
+            "title": "文章1",
+            "category": null,
+            "content": "only test",
+            "tags": [{
+                "id": 1,
+                "tag_name": "Flask"
+            }, {
+                "id": 2,
+                "tag_name": "Python"
+            }],
+            "created_date": "Sun, 12 Jan 2020 16:37:06 GMT",
+            "updated_date": null
+        }
+    }
+```
