@@ -24,6 +24,24 @@ def post_query_by_category():
 def post_query_by_tag():
     return postQueryByTag(request.get_json())
 
+@bp.route('/queryArchives', methods=['GET'])
+@resp_wrapper
+@json_required
+def post_query_archives():
+    return postQueryByTag(request.get_json())
+
+@bp.route('/queryArchivesByCategory', methods=['GET'])
+@resp_wrapper
+@json_required
+def post_query_archives_by_category():
+    return postQueryByTag(request.get_json())
+
+@bp.route('/queryArchivesByTag', methods=['GET'])
+@resp_wrapper
+@json_required
+def post_query_archives_by_tag():
+    return postQueryByTag(request.get_json())
+
 @bp.route('/queryDetail', methods=['GET'])
 @resp_wrapper
 @json_required
