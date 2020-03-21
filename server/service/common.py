@@ -36,19 +36,18 @@ def queryTags(tag_ids):
     ]
 def queryPostTags(post_id):
     return queryTags([post_tag.tag_id for post_tag in PostTag.queryByPostId(post_id)])
+def queryPost(post):
+    return {
+        'id': post.id,
+        'title': post.title,
+        'content': post.content,
+        'category': queryCategory(post.category_id),
+        'tags': queryPostTags(post.id),
+        'created_date': post.created_date.__format__('%Y-%m-%d %H:%M:%S'),
+        'updated_date': post.updated_date if post.updated_date is None else post.updated_date.__format__('%Y-%m-%d %H:%M:%S')
+    }
 def queryPosts(posts):
-    return [
-        {
-            'id': post.id,
-            'title': post.title,
-            'content': post.content,
-            'category': queryCategory(post.category_id),
-            'tags': queryPostTags(post.id),
-            'created_date': post.created_date.__format__('%Y-%m-%d %H:%M:%S'),
-            'updated_date': post.updated_date if post.updated_date is None else post.updated_date.__format__('%Y-%m-%d %H:%M:%S'),
-        } 
-        for post in posts
-    ]
+    return [ queryPost(post) for post in posts]
 
 def updateCategory(category_name):
     category_id = None

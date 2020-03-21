@@ -3,7 +3,7 @@ from server.dao.post import Post
 from server.dao.category import Category
 from server.dao.tag import Tag
 from server.dao.post_tag import PostTag
-from server.service.common import insertCategory, insertTags, insertPostTag, queryPosts, updatePost
+from server.service.common import insertCategory, insertTags, insertPostTag, queryPost, queryPosts, updatePost
 from server.utils.exception.exception import APIException, ServerException
 from server.utils.decorators.commit import commit
 
@@ -113,7 +113,7 @@ def postQueryDetail(params):
     post_query = Post.queryById(post_id)
     if post_query is None:
         raise APIException('post_id 不存在', 400)
-    post_data = queryPosts([ post_query ])[0]
+    post_data = queryPost(post_query)
     return {
         'msg': '查询成功',
         'data': post_data
