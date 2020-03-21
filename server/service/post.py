@@ -113,9 +113,10 @@ def postQueryDetail(params):
     post_query = Post.queryById(post_id)
     if post_query is None:
         raise APIException('post_id 不存在', 400)
+    post_data = queryPosts([ post_query ])[0]
     return {
         'msg': '查询成功',
-        'data': { k: v for k, v in post_query.to_dict().items() }
+        'data': post_data
     }
 
 @commit

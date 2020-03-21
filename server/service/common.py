@@ -44,8 +44,8 @@ def queryPosts(posts):
             'content': post.content,
             'category': queryCategory(post.category_id),
             'tags': queryPostTags(post.id),
-            'created_date': post.created_date,
-            'updated_date': post.updated_date,
+            'created_date': post.created_date.__format__('%Y-%m-%d %H:%M:%S'),
+            'updated_date': post.updated_date if post.updated_date is None else post.updated_date.__format__('%Y-%m-%d %H:%M:%S'),
         } 
         for post in posts
     ]
