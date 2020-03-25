@@ -106,6 +106,13 @@ def postQueryByTag(params):
     }
 
 @commit
+def postQueryArchives(params):
+    return {
+        'msg': '查询成功',
+        'data': None
+    }
+
+@commit
 def postQueryDetail(params):
     post_id = params.get('post_id')
     if post_id is None:
